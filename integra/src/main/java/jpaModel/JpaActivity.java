@@ -1,14 +1,15 @@
-package model;
+package jpaModel;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class Activity {
+public class JpaActivity {
     private String title;
     private String description;
     private String pwdDescription;
@@ -18,7 +19,7 @@ public class Activity {
     private int guidesNumber;
     private String place;
 
-    public Activity(String title, String description, String pwdDescription,
+    public JpaActivity(String title, String description, String pwdDescription,
                     boolean pwdPriority, int effortLevel, int tickets, int guidesNumber, String place) {
         notNull(title, " Activity title must not be null");
         notNull(description, " Activity description must not be null");
@@ -39,4 +40,6 @@ public class Activity {
         return String.format("Title: %s, Description: %s, PwD: %s, Tickets: %d, Place: %s",
                 title, description, isPwdPriority(), tickets, place);
     }
+
+    
 }
