@@ -17,6 +17,11 @@ public class User {
     private boolean pwd;
     private String gender;
 
+    public User(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String email, String password, String name, List<String> management,
                 String phone, boolean pwd, String gender) {
         notNull(email, "User email cannot be null");
