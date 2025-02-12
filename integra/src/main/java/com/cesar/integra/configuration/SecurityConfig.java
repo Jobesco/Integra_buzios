@@ -1,4 +1,4 @@
-package configuration;
+package com.cesar.integra.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

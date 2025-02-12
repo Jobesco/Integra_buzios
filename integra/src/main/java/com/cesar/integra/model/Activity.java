@@ -1,14 +1,17 @@
-package model;
+package com.cesar.integra.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class Activity {
+public class Activity implements Serializable {
     private String title;
     private String description;
     private String pwdDescription;

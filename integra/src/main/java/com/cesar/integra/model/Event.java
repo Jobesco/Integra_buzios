@@ -1,9 +1,11 @@
-package model;
+package com.cesar.integra.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
 import java.sql.Date;
 
 import static org.springframework.util.Assert.notNull;
@@ -11,7 +13,7 @@ import static org.springframework.util.Assert.notNull;
 @Getter
 @Setter(AccessLevel.PRIVATE)
 @ToString
-public class Event {
+public class Event implements Serializable {
     private String name;
     private Date guideFormStartDate;
     private Date guideFormEndDate;

@@ -1,4 +1,4 @@
-package model;
+package com.cesar.integra.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,11 +1,10 @@
-package model;
+package com.cesar.integra.model;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;

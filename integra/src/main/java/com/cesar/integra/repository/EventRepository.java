@@ -1,6 +1,6 @@
-package repository;
+package com.cesar.integra.repository;
 
-import model.Event;
+import com.cesar.integra.model.Event;
 import java.util.List;
 
 public interface EventRepository {

@@ -1,4 +1,4 @@
-package model;
+package com.cesar.integra.model;
 
 import java.util.List;
 import lombok.AccessLevel;

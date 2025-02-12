@@ -1,9 +1,9 @@
-package service;
+package com.cesar.integra.service;
 
-import model.User;
+import com.cesar.integra.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
+import com.cesar.integra.repository.UserRepository;
 import java.util.Optional;
 
 

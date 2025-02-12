@@ -1,6 +1,6 @@
-package repository;
+package com.cesar.integra.repository;
 
-import model.User;
+import com.cesar.integra.model.User;
 import java.util.List;
 import java.util.Optional;
 
