@@ -5,6 +5,7 @@ import com.cesar.integra.repository.RegistrationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegistrationService {
@@ -19,7 +20,7 @@ public class RegistrationService {
         return registrationRepository.save(registration);
     }
 
-    public Registration findById(int id) {
+    public Optional<Registration> findById(int id) {
         return registrationRepository.findById(id);
     }
 
@@ -27,7 +28,7 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
-    public Registration delete(int id) {
-        return registrationRepository.delete(id);
+    public void delete(int id) {
+        registrationRepository.delete(id);
     }
 }

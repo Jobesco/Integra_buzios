@@ -5,6 +5,7 @@ import com.cesar.integra.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -18,15 +19,15 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public Event find(String name){
-        return eventRepository.findEventByName(name);
+    public Optional<Event> find(String name){
+        return eventRepository.findByName(name);
     }
 
     public List<Event> findAll(){
         return eventRepository.findAll();
     }
 
-    public Event delete(String name){
-        return eventRepository.findEventByName(name);
+    public void delete(String name){
+        eventRepository.findByName(name);
     }
 }

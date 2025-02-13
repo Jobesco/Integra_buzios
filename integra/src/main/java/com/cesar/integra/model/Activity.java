@@ -3,9 +3,7 @@ package com.cesar.integra.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.io.Serializable;
-
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
@@ -20,9 +18,10 @@ public class Activity implements Serializable {
     private int tickets;
     private int guidesNumber;
     private String place;
+    private float cost;
 
     public Activity(String title, String description, String pwdDescription,
-                    boolean pwdPriority, int effortLevel, int tickets, int guidesNumber, String place) {
+                    boolean pwdPriority, int effortLevel, int tickets, int guidesNumber, String place, float cost) {
         notNull(title, " Activity title must not be null");
         notNull(description, " Activity description must not be null");
         isTrue((tickets > 0), "Activity tickets must be greater than 0");
@@ -36,6 +35,7 @@ public class Activity implements Serializable {
         this.tickets = tickets;
         this.guidesNumber = guidesNumber;
         this.place = place;
+        this.cost = cost;
     }
 
     public String ToString(){

@@ -7,6 +7,7 @@ import com.cesar.integra.repository.ParticipantRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParticipantService {
@@ -20,15 +21,15 @@ public class ParticipantService {
         return participantRepository.save(participant);
     }
 
-    public Participant find(Group group, Registration registration) {
-        return participantRepository.findParticipant(group, registration);
+    public Optional<Participant> find(int id) {
+        return participantRepository.findById(id);
     }
 
     public List<Participant> findAll() {
         return participantRepository.findAll();
     }
 
-    public Participant delete(Participant participant) {
-        return participantRepository.delete(participant);
+    public void delete(int id) {
+        participantRepository.delete(id);
     }
 }

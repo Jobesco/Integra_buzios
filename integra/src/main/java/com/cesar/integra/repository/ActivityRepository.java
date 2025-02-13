@@ -2,10 +2,11 @@ package com.cesar.integra.repository;
 
 import com.cesar.integra.model.Activity;
 import java.util.List;
+import java.util.Optional;
 
 public interface ActivityRepository {
     public Activity save(Activity activity);
-    public Activity findByTitle(String title);
+    public Optional<Activity> findByTitle(String title);
     public List<Activity> findAll();
-    public Activity delete(String title);
+    public void delete(String title);
 }

@@ -26,7 +26,7 @@ public class ActivityService {
         return activityRepository.findAll();
     }
 
-    public Activity delete(String title) {
-        return activityRepository.delete(title);
+    public void delete(String title) {
+        activityRepository.delete(title);
     }
 }

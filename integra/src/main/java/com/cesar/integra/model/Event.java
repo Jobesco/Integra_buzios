@@ -4,10 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.io.Serializable;
 import java.sql.Date;
-
 import static org.springframework.util.Assert.notNull;
 
 @Getter

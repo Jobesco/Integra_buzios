@@ -7,6 +7,7 @@ import com.cesar.integra.repository.GuideRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuideService {
@@ -20,15 +21,15 @@ public class GuideService {
         return guideRepository.save(guide);
     }
 
-    public Guide find(User user, Group group){
-        return guideRepository.findGuide(user, group);
+    public Optional<Guide> find(int id){
+        return guideRepository.findById(id);
     }
 
     public List<Guide> findAll(){
         return guideRepository.findAll();
     }
 
-    public Guide delete(Guide guide) {
-        return guideRepository.delete(guide);
+    public void delete(int id) {
+        guideRepository.delete(id);
     }
 }

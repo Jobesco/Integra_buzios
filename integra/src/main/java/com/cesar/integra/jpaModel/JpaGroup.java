@@ -1,14 +1,12 @@
 package com.cesar.integra.jpaModel;
 
+import com.cesar.integra.model.Activity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
-
-import com.cesar.integra.model.Event;
-import com.cesar.integra.model.Activity;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,26 +14,24 @@ import com.cesar.integra.model.Activity;
 @Table(name = "Group")
 public class JpaGroup implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Event event;
-    private Activity activity;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
-    private String event_name = event.getName();
+    @ManyToOne
+    @JoinColumn(name = "eventId", referencedColumnName = "id")
+    private JpaEvent event;
+
+    @ManyToOne
+    @JoinColumn(name = "activityId", referencedColumnName = "id")
+    private JpaActivity activity;
 
     @Column
-    private String acticity_title = activity.getTitle();
+    private LocalDateTime realizationDateTime;
 
     @Column
-    private Date date;
-
-    @Column
-    private Time time;
-
-    @Column String status;
+    private String status;
 
     public JpaGroup() {
 

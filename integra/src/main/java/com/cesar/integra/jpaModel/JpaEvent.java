@@ -13,7 +13,6 @@ import java.sql.Date;
 public class JpaEvent{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String name;
 
     @Column

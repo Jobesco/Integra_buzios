@@ -1,5 +1,6 @@
 package com.cesar.integra.model;
 
+import java.io.Serializable;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -8,7 +9,7 @@ import static org.springframework.util.Assert.notNull;
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
-public class User {
+public class User implements Serializable {
     private String email;
     private String password;
     private String name;
@@ -39,14 +40,18 @@ public class User {
         this.gender = gender;
     }
 
-    public void addMangement(String management){
-        notNull(management, "management cannot be null");
-        this.management.add(management);
+    public void addMangements(List<String> managements){
+        notNull(managements, "management cannot be null");
+        for(String management : managements){
+            this.management.add(management);
+        }
     }
 
-    public void removeMangement(String management){
-        notNull(management, "management cannot be null");
-        this.management.remove(management);
+    public void removeMangements(List<String> managements){
+        notNull(managements, "management cannot be null");
+        for(String management : managements){
+            this.management.remove(management);
+        }
     }
 
     @Override

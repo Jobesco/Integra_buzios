@@ -1,0 +1,53 @@
+package com.cesar.integra.jpaRepository;
+
+import com.cesar.integra.mapper.UserMapper;
+import com.cesar.integra.model.Registration;
+import com.cesar.integra.mapper.RegistrationMapper;
+import com.cesar.integra.jpaModel.JpaRegistration;
+import com.cesar.integra.repository.RegistrationRepository;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+import java.util.Optional;
+import static org.springframework.util.Assert.notNull;
+
+@Repository
+public class JpaRegistrationRepository implements RegistrationRepository {
+
+    private final JpaRegistrationRepositoryDefault jpaRegistrationRepositoryDefault;
+
+    public JpaRegistrationRepository(JpaRegistrationRepositoryDefault jpaRegistrationRepositoryDefault) {
+        this.jpaRegistrationRepositoryDefault = jpaRegistrationRepositoryDefault;
+    }
+
+    @Override
+    public Registration save(Registration registration) {
+        notNull(registration, "registration must not be null");
+
+        JpaRegistration jpaRegistration = RegistrationMapper.toJpaRegistration(registration);
+        JpaRegistration savedJpaRegistration = jpaRegistrationRepositoryDefault.save(jpaRegistration);
+
+        return RegistrationMapper.toRegistration(savedJpaRegistration);
+    }
+
+    @Override
+    public Optional<Registration> findById(int id) {
+        notNull(id, "id must not be null");
+
+        return jpaRegistrationRepositoryDefault.findById(id)
+                .map(RegistrationMapper::toRegistration);
+    }
+
+    @Override
+    public List<Registration> findAll() {
+        return jpaRegistrationRepositoryDefault.findAll().stream()
+                .map(RegistrationMapper::toRegistration)
+                .toList();
+    }
+
+    @Override
+    public void delete(int id) {
+        notNull(id, "id must not be null");
+
+        jpaRegistrationRepositoryDefault.deleteById(id);
+    }
+}

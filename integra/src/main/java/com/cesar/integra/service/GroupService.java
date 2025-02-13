@@ -5,6 +5,7 @@ import com.cesar.integra.repository.GroupRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroupService {
@@ -18,7 +19,7 @@ public class GroupService {
         return groupRepository.save(group);
     }
 
-    public Group findById(int id) {
+    public Optional<Group> findById(int id) {
         return groupRepository.findById(id);
     }
 
@@ -26,8 +27,8 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Group delete(int id) {
-        return groupRepository.delete(id);
+    public void delete(int id) {
+        groupRepository.delete(id);
     }
 
     

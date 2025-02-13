@@ -3,8 +3,6 @@ package com.cesar.integra.jpaModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-
 import java.io.Serializable;
 
 @Getter
@@ -15,7 +13,6 @@ public class JpaActivity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String title;
 
     @Column
@@ -38,6 +35,9 @@ public class JpaActivity implements Serializable {
 
     @Column
     private String place;
+
+    @Column
+    private float cost;
 
     public JpaActivity() {
 
