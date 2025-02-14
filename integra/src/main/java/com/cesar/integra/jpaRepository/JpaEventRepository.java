@@ -4,12 +4,13 @@ import com.cesar.integra.jpaModel.JpaEvent;
 import com.cesar.integra.mapper.EventMapper;
 import com.cesar.integra.model.Event;
 import com.cesar.integra.repository.EventRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-
 import static org.springframework.util.Assert.notNull;
 
+@Repository
 public class JpaEventRepository implements EventRepository {
 
     private final JpaEventRepositoryDefault jpaEventRepositoryDefault;

@@ -18,6 +18,7 @@ public class RegistrationMapper {
         jpaRegistration.setRegistrationDateTime(registration.getRegistrationDateTime());
         jpaRegistration.setAvailableDays(SqlDateConverter.toString(registration.getAvailableDays()));
         jpaRegistration.setStatus(registration.getStatus());
+        jpaRegistration.setOnVacation(registration.isOnVacation());
 
         return jpaRegistration;
     }
@@ -31,8 +32,8 @@ public class RegistrationMapper {
                 ActivityMapper.toActivity(jpaRegistration.getActivity()),
                 jpaRegistration.getRegistrationDateTime(),
                 SqlDateConverter.toList(jpaRegistration.getAvailableDays()),
-                jpaRegistration.getStatus()
-
+                jpaRegistration.getStatus(),
+                jpaRegistration.isOnVacation()
         );
     }
 

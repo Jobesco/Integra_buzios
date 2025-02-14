@@ -5,6 +5,7 @@ import com.cesar.integra.repository.ActivityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActivityService {
@@ -18,7 +19,7 @@ public class ActivityService {
         return activityRepository.save(activity);
     }
 
-    public Activity find(String title) {
+    public Optional<Activity> find(String title) {
         return activityRepository.findByTitle(title);
     }
 

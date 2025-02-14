@@ -8,6 +8,8 @@ import com.cesar.integra.repository.RegistrationRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Repository
@@ -31,7 +33,7 @@ public class JpaRegistrationRepository implements RegistrationRepository {
 
     @Override
     public Optional<Registration> findById(int id) {
-        notNull(id, "id must not be null");
+        isTrue(id > 0, "id must be greater than 0");
 
         return jpaRegistrationRepositoryDefault.findById(id)
                 .map(RegistrationMapper::toRegistration);
@@ -46,7 +48,7 @@ public class JpaRegistrationRepository implements RegistrationRepository {
 
     @Override
     public void delete(int id) {
-        notNull(id, "id must not be null");
+        isTrue(id > 0, "id must be greater than 0");
 
         jpaRegistrationRepositoryDefault.deleteById(id);
     }

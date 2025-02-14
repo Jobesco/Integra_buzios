@@ -8,7 +8,7 @@ import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 public class Activity implements Serializable {
     private String title;
     private String description;

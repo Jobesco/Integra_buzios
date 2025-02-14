@@ -5,10 +5,9 @@ import com.cesar.integra.mapper.GroupMapper;
 import com.cesar.integra.model.Group;
 import com.cesar.integra.repository.GroupRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
-
+import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Repository
@@ -31,6 +30,8 @@ public class JpaGroupRepository implements GroupRepository {
 
     @Override
     public Optional<Group> findById(int id) {
+        isTrue(id > 0, "Id must be greater than 0");
+
         return jpaGroupRepositoryDefault.findById(id)
                 .map(GroupMapper::toGroup);
     }
@@ -44,6 +45,8 @@ public class JpaGroupRepository implements GroupRepository {
 
     @Override
     public void delete(int id) {
+        isTrue(id > 0, "Id must be greater than 0");
+
         jpaGroupRepositoryDefault.deleteById(id);
     }
 }

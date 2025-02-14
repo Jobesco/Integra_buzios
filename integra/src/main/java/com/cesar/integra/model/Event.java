@@ -9,7 +9,7 @@ import java.sql.Date;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 @ToString
 public class Event implements Serializable {
     private String name;

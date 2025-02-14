@@ -4,6 +4,8 @@ import com.cesar.integra.jpaModel.JpaParticipant;
 import com.cesar.integra.mapper.ParticipantMapper;
 import com.cesar.integra.model.Participant;
 import com.cesar.integra.repository.ParticipantRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,6 +13,7 @@ import java.util.stream.Collectors;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
+@Repository
 public class JpaParticipantRepository implements ParticipantRepository {
     private final JpaParticipantRepositoryDefault jpaParticipantRepositoryDefault;
 
@@ -40,11 +43,13 @@ public class JpaParticipantRepository implements ParticipantRepository {
     public List<Participant> findAll() {
         return jpaParticipantRepositoryDefault.findAll().stream()
                 .map(ParticipantMapper::toParticipant)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     public void delete(int id) {
+        isTrue(id > 0, "Id must be grater than 0");
+
         jpaParticipantRepositoryDefault.deleteById(id);
     }
 }

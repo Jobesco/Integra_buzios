@@ -18,11 +18,11 @@ public class JpaGuide implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userEmail", referencedColumnName = "email")
     private JpaUser user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "groupId", referencedColumnName = "id")
     private JpaGroup group;
 

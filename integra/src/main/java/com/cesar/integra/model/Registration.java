@@ -12,7 +12,7 @@ import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 public class Registration {
     private int id;
     private User user;
@@ -20,9 +20,10 @@ public class Registration {
     private LocalDateTime registrationDateTime;
     private List<Date> availableDays;
     private String status;
+    private boolean onVacation;
 
     /**To new registrations*/
-    public Registration(User user, Activity activity, LocalDateTime registrationDateTime, List<Date> availableDays, String status) {
+    public Registration(User user, Activity activity, LocalDateTime registrationDateTime, List<Date> availableDays, String status, boolean onVacation) {
         notNull(user, "Registration user must not be null");
         notNull(activity, "Registration activity must not be null");
         notNull(registrationDateTime, "Registration date must not be null");
@@ -33,14 +34,16 @@ public class Registration {
         this.registrationDateTime = registrationDateTime;
         this.availableDays = availableDays;
         this.status = status;
+        this.onVacation = onVacation;
     }
 
-    /**To create new registrations*/
+
     public Registration(int id, User user, Activity activity, LocalDateTime registrationDateTime,
-                        List<Date> availableDays, String status) {
-        this(user, activity, registrationDateTime, availableDays, status);
+                        List<Date> availableDays, String status, boolean onVacation) {
+        this(user, activity, registrationDateTime, availableDays, status, onVacation);
         isTrue(id > 0, "Registration id must be greater than 0");
         this.id = id;
     }
+
 
 }

@@ -32,6 +32,9 @@ public class JpaUser implements Serializable {
 
     @Column
     private String gender;
+    
+    @Column
+    private boolean active;
 
     public JpaUser() {
 

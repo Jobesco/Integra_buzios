@@ -10,7 +10,7 @@ import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 public class Group implements Serializable {
     private int id;
     private Event event;

@@ -10,9 +10,8 @@ import java.util.List;
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
-@Getter()
-@Setter(AccessLevel.PRIVATE)
-
+@Getter
+@Setter
 public class Guide {
     private int id;
     private User user;

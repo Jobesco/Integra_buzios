@@ -22,6 +22,7 @@ public class UserMapper {
         jpaUser.setPhone(user.getPhone());
         jpaUser.setPwd(user.isPwd());
         jpaUser.setGender(user.getGender());
+        jpaUser.setActive(user.getActive());
 
         return jpaUser;
     }
@@ -38,7 +39,8 @@ public class UserMapper {
                 managements,
                 jpaUser.getPhone(),
                 jpaUser.isPwd(),
-                jpaUser.getGender()
+                jpaUser.getGender(),
+                jpaUser.isActive()
         );
     }
 }

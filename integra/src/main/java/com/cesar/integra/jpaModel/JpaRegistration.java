@@ -18,11 +18,11 @@ public class JpaRegistration implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "userID", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userEmail", referencedColumnName = "email")
     private JpaUser user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "activityTitle", referencedColumnName = "title")
     private JpaActivity activity;
 
@@ -34,6 +34,9 @@ public class JpaRegistration implements Serializable {
 
     @Column
     private String status;
+
+    @Column
+    private boolean onVacation;
 
     public JpaRegistration() {
 

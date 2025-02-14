@@ -8,7 +8,7 @@ import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
 @Getter
-@Setter(AccessLevel.PRIVATE)
+@Setter
 public class Participant {
     private int id;
     private Group group;

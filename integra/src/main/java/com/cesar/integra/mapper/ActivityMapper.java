@@ -18,6 +18,7 @@ public class ActivityMapper {
         jpaActivity.setEffortLevel(activity.getEffortLevel());
         jpaActivity.setTickets(activity.getTickets());
         jpaActivity.setGuidesNumber(activity.getGuidesNumber());
+        jpaActivity.setPlace(activity.getPlace());
         jpaActivity.setCost(activity.getCost());
 
         return jpaActivity;
