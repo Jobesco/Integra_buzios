@@ -17,11 +17,11 @@ public class JpaGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "eventName", referencedColumnName = "name")
     private JpaEvent event;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "activityTitle", referencedColumnName = "title")
     private JpaActivity activity;
 

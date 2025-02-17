@@ -1,15 +1,19 @@
 package com.cesar.integra.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.Setter;
 import lombok.Getter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import static org.springframework.util.Assert.notNull;
 
 @Getter
 @Setter
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
     private String email;
     @Setter(AccessLevel.PRIVATE)
     private String password;
@@ -19,6 +23,8 @@ public class User implements Serializable {
     private boolean pwd;
     private String gender;
     private Boolean active;
+
+    public User() {}
 
     public User(String email, String name, List<String> management,
                 String phone, boolean pwd, String gender, boolean active) {
@@ -34,6 +40,23 @@ public class User implements Serializable {
         this.pwd = pwd;
         this.gender = gender;
         this.active = active;
+    }
+
+    public User(String email, String password, String name, List<String> management,
+                String phone, boolean pwd, String gender) {
+        notNull(email, "User email cannot be null");
+        notNull(name, "User name cannot be null");
+        notNull(password, "User password cannot be null");
+        notNull(management, "User management cannot be null");
+        notNull(phone, "User phone cannot be null");
+        notNull(gender, "User gender cannot be null");
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.management = management;
+        this.phone = phone;
+        this.pwd = pwd;
+        this.gender = gender;
     }
 
     public User(String email, String password, String name, List<String> management,
@@ -65,5 +88,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return String.format("Name: %s, Email: %s, PwD: %s, Gender: %s", name, email, isPwd(), gender);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return active;
     }
 }

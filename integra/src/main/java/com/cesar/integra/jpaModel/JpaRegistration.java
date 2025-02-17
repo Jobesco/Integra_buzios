@@ -18,11 +18,11 @@ public class JpaRegistration implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "userEmail", referencedColumnName = "email")
     private JpaUser user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "activityTitle", referencedColumnName = "title")
     private JpaActivity activity;
 

@@ -3,6 +3,8 @@ package com.cesar.integra.serviceTests;
 import com.cesar.integra.model.Activity;
 import com.cesar.integra.model.Event;
 import com.cesar.integra.model.Group;
+import com.cesar.integra.service.ActivityService;
+import com.cesar.integra.service.EventService;
 import com.cesar.integra.service.GroupService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,12 @@ public class GroupTest {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private ActivityService activityService;
+
+    @Autowired
+    private EventService eventService;
+
     @Test
     void testCreateGroup() {
         Event event = new Event("Tech Meetup", Date.valueOf("2025-06-01"),
@@ -31,6 +39,8 @@ public class GroupTest {
 
         Group group = new Group(event, activity, LocalDateTime.now(), "Scheduled");
 
+        eventService.save(event);
+        activityService.save(activity);
         Group savedGroup = groupService.save(group);
 
         assertNotNull(savedGroup);
@@ -51,6 +61,9 @@ public class GroupTest {
                 true, 3, 50, 2, "Main Hall", 20.0f);
 
         Group group = new Group(event, activity, LocalDateTime.now(), "Scheduled");
+
+        eventService.save(event);
+        activityService.save(activity);
         group = groupService.save(group);
 
         Optional<Group> groupOpt = groupService.findById(group.getId());
@@ -77,6 +90,9 @@ public class GroupTest {
                 true, 3, 50, 2, "Main Hall", 20.0f);
 
         Group group = new Group(event, activity, LocalDateTime.now(), "Scheduled");
+
+        eventService.save(event);
+        activityService.save(activity);
         group = groupService.save(group);
 
         groupService.delete(group.getId());

@@ -19,6 +19,8 @@ public class Guide {
     private List<Date> availableDays;
     private String status;
 
+    public Guide() {}
+
     /**To create new guides*/
     public Guide(User user, Group group, String status, List<Date> availableDays) {
         notNull(user, "Guide user cannot be null");

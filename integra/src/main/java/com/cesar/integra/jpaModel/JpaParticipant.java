@@ -17,11 +17,11 @@ public class JpaParticipant implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "groupId", referencedColumnName = "id")
     private JpaGroup group;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "registrationId", referencedColumnName = "id")
     private JpaRegistration registration;
 

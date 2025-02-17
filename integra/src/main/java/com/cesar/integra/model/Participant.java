@@ -14,6 +14,8 @@ public class Participant {
     private Group group;
     private Registration registration;
 
+    public Participant() {}
+
     /**To create new participants*/
     public Participant(Group group, Registration registration) {
         notNull(group, "Participant group cannot be null");

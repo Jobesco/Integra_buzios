@@ -22,6 +22,8 @@ public class Registration {
     private String status;
     private boolean onVacation;
 
+    public Registration() {}
+
     /**To new registrations*/
     public Registration(User user, Activity activity, LocalDateTime registrationDateTime, List<Date> availableDays, String status, boolean onVacation) {
         notNull(user, "Registration user must not be null");

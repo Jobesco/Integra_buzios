@@ -25,6 +25,7 @@ public class GuideMapper {
         notNull(jpaGuide, "JpaGuide must not be null");
 
         return new Guide(
+                jpaGuide.getId(),
                 UserMapper.toUser(jpaGuide.getUser()),
                 GroupMapper.toGroup(jpaGuide.getGroup()),
                 jpaGuide.getStatus(),

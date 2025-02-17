@@ -20,6 +20,10 @@ public class Activity implements Serializable {
     private String place;
     private float cost;
 
+    public Activity(){
+
+    }
+
     public Activity(String title, String description, String pwdDescription,
                     boolean pwdPriority, int effortLevel, int tickets, int guidesNumber, String place, float cost) {
         notNull(title, " Activity title must not be null");

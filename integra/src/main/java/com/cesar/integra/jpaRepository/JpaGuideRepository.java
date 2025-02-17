@@ -31,7 +31,7 @@ public class JpaGuideRepository implements GuideRepository {
 
     @Override
     public Optional<Guide> findById(int id) {
-        isTrue(id > 0, "Id must be greater than 0");
+        isTrue(id > 0, "Guide Id must be greater than 0");
 
         return jpaGuideRepositoryDefault.findById(id)
                 .map(GuideMapper::toGuide);
@@ -46,7 +46,7 @@ public class JpaGuideRepository implements GuideRepository {
 
     @Override
     public void delete(int id) {
-        isTrue(id > 0, "Id must be greater than 0");
+        isTrue(id > 0, "Guide Id must be greater than 0");
 
         jpaGuideRepositoryDefault.deleteById(id);
     }

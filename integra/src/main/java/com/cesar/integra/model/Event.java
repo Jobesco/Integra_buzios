@@ -20,6 +20,10 @@ public class Event implements Serializable {
     private Date realizationStartDate;
     private Date realizationEndDate;
 
+    public Event(){
+
+    }
+
     public Event(String name, Date guideFormStartDate, Date guideFormEndDate,
                  Date participantFormStartDate, Date participantFormEndDate,
                  Date realizationStartDate, Date realizationEndDate) {

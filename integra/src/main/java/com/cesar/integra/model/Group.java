@@ -18,6 +18,10 @@ public class Group implements Serializable {
     private LocalDateTime realizationDateTime;
     private String status;
 
+    public Group(){
+
+    }
+
     /**To create new groups*/
     public Group(Event event, Activity activity, LocalDateTime realizationDateTime, String status) {
         notNull(event, "Group event name cannot be null");
