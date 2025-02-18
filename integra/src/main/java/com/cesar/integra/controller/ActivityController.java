@@ -16,7 +16,6 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
-    //revisar
     @PostMapping("/newActivity")
     public ResponseEntity<Activity> newActivity(@RequestBody Activity activity) {
         Optional.ofNullable(activity)
@@ -39,8 +38,7 @@ public class ActivityController {
         return ResponseEntity.ok(activities);
     }
 
-    //revisar
-    @PutMapping(("/{title}/activityUpdate"))
+    @PutMapping(("/{title}/edit"))
     public ResponseEntity<Activity> uptadeActivity(@PathVariable String title, @RequestBody Activity activity) {
         Optional.ofNullable(activity)
                 .filter(a -> a.getTitle() != null && !a.getTitle().trim().isEmpty())
@@ -48,9 +46,8 @@ public class ActivityController {
 
         return activityService.find(title)
                 .map(existingActivity -> {
-                    activity.setTitle(existingActivity.getTitle());
-                    Activity updatedActivity = activityService.save(activity);
-                    return ResponseEntity.ok(updatedActivity);
+                    activityService.save(activity);
+                    return ResponseEntity.ok(activity);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

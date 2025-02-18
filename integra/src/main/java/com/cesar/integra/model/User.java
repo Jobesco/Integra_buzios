@@ -13,7 +13,7 @@ import static org.springframework.util.Assert.notNull;
 
 @Getter
 @Setter
-public class User implements Serializable, UserDetails {
+public class User implements Serializable{
     private String email;
     @Setter(AccessLevel.PRIVATE)
     private String password;
@@ -88,20 +88,5 @@ public class User implements Serializable, UserDetails {
     @Override
     public String toString() {
         return String.format("Name: %s, Email: %s, PwD: %s, Gender: %s", name, email, isPwd(), gender);
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return active;
     }
 }

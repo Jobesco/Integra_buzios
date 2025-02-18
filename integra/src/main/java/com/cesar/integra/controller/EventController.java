@@ -15,7 +15,6 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    //revisar
     @PostMapping("/newEvent")
     public ResponseEntity<Event> newEvent(@RequestBody Event event) {
         Optional.ofNullable(event)
@@ -48,9 +47,7 @@ public class EventController {
 
         return eventService.find(name)
                 .map(existingEvent -> {
-                    event.setName(existingEvent.getName());
-                    Event updatedEvent = eventService.save(event);
-                    return ResponseEntity.ok(updatedEvent);
+                    return ResponseEntity.ok(event);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -46,7 +46,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .rememberMe(rememberMe -> rememberMe
-                        .key("chave-secreta-unica")
+                        .key("integraIntegra")
                         .tokenValiditySeconds(86400)
                         .userDetailsService(userDetailsService(null))
                 )
@@ -58,7 +58,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                         .sessionFixation().migrateSession()
                         .maximumSessions(1)
                         .expiredUrl("/auth/login?expired")
