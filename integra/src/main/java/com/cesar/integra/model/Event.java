@@ -1,11 +1,11 @@
 package com.cesar.integra.model;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
+
 import static org.springframework.util.Assert.notNull;
 
 @Getter
@@ -13,20 +13,20 @@ import static org.springframework.util.Assert.notNull;
 @ToString
 public class Event implements Serializable {
     private String name;
-    private Date guideFormStartDate;
-    private Date guideFormEndDate;
-    private Date participantFormStartDate;
-    private Date participantFormEndDate;
-    private Date realizationStartDate;
-    private Date realizationEndDate;
+    private LocalDate guideFormStartDate;
+    private LocalDate guideFormEndDate;
+    private LocalDate participantFormStartDate;
+    private LocalDate participantFormEndDate;
+    private LocalDate realizationStartDate;
+    private LocalDate realizationEndDate;
 
     public Event(){
 
     }
 
-    public Event(String name, Date guideFormStartDate, Date guideFormEndDate,
-                 Date participantFormStartDate, Date participantFormEndDate,
-                 Date realizationStartDate, Date realizationEndDate) {
+    public Event(String name, LocalDate guideFormStartDate, LocalDate guideFormEndDate,
+                 LocalDate participantFormStartDate, LocalDate participantFormEndDate,
+                 LocalDate realizationStartDate, LocalDate realizationEndDate) {
         notNull(name, "Event name cannot be null");
         notNull(guideFormStartDate, "Event guideFormStartDate cannot be null");
         notNull(guideFormEndDate, "Event guideFormEndDate cannot be null");

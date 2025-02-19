@@ -6,6 +6,7 @@ import com.cesar.integra.model.Activity;
 import com.cesar.integra.service.GroupService;
 import com.cesar.integra.service.EventService;
 import com.cesar.integra.service.ActivityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/groups")
 public class GroupController {
+    @Autowired
     private  GroupService groupService;
+    @Autowired
     private  ActivityService activityService;
+    @Autowired
     private  EventService eventService;
 
     @PostMapping("/newGroup")

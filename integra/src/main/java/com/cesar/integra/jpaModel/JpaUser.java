@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -35,6 +36,12 @@ public class JpaUser implements Serializable {
     
     @Column
     private boolean active;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaGuide> guides;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaRegistration> registrations;
 
     public JpaUser() {
 

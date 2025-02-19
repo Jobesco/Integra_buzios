@@ -17,7 +17,9 @@ import java.util.Optional;
 public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
+    @Autowired
     private UserService userService;
+    @Autowired
     private ActivityService activityService;
 
     @PostMapping("/newRegistration")

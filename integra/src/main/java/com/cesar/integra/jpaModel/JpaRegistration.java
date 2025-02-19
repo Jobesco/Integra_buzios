@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -37,6 +38,9 @@ public class JpaRegistration implements Serializable {
 
     @Column
     private boolean onVacation;
+
+    @OneToMany(mappedBy = "registration", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaParticipant> participants;
 
     public JpaRegistration() {
 

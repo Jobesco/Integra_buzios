@@ -38,8 +38,7 @@ public class EventController {
     }
 
 
-    //revisar
-    @PutMapping("/{name}/eventUpdate")
+    @PutMapping("/{name}/edit")
     public ResponseEntity<Event> updateEvent(@PathVariable String name, @RequestBody Event event) {
         Optional.ofNullable(event)
                 .filter(a -> a.getName() != null && !a.getName().trim().isEmpty())
@@ -47,6 +46,7 @@ public class EventController {
 
         return eventService.find(name)
                 .map(existingEvent -> {
+                    eventService.save(event);
                     return ResponseEntity.ok(event);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -74,7 +75,7 @@ public class GuideTest {
             user = foundUser.get();
         }
 
-        Event event = new Event("Tech Event", Date.valueOf("2025-06-01"),
+        Event event = new Event("Tech Event", LocalDate.("2025-06-01"),
                 Date.valueOf("2025-06-10"), Date.valueOf("2025-07-01"),
                 Date.valueOf("2025-07-10"), Date.valueOf("2025-08-01"),
                 Date.valueOf("2025-08-10"));

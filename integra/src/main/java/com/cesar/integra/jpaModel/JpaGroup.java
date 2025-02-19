@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,11 +18,11 @@ public class JpaGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "eventName", referencedColumnName = "name")
     private JpaEvent event;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "activityTitle", referencedColumnName = "title")
     private JpaActivity activity;
 
@@ -30,6 +31,12 @@ public class JpaGroup implements Serializable {
 
     @Column
     private String status;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaGuide> guides;
+
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaParticipant> participants;
 
     public JpaGroup() {
 

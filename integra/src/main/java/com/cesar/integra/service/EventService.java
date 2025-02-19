@@ -28,6 +28,6 @@ public class EventService {
     }
 
     public void delete(String name){
-        eventRepository.findByName(name);
+        eventRepository.delete(name);
     }
 }

@@ -3,7 +3,8 @@ package com.cesar.integra.jpaModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -16,22 +17,25 @@ public class JpaEvent{
     private String name;
 
     @Column
-    private Date guideFormStartDate;
+    private LocalDate guideFormStartDate;
 
     @Column
-    private Date guideFormEndDate;
+    private LocalDate guideFormEndDate;
 
     @Column
-    private Date participantFormStartDate;
+    private LocalDate participantFormStartDate;
 
     @Column
-    private Date participantFormEndDate;
+    private LocalDate participantFormEndDate;
 
     @Column
-    private Date realizationFormStartDate;
+    private LocalDate realizationFormStartDate;
 
     @Column
-    private Date realizationFormEndDate;
+    private LocalDate realizationFormEndDate;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaGroup> groups;
 
     public JpaEvent(){
 

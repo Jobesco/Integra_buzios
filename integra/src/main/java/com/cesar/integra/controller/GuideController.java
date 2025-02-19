@@ -6,6 +6,7 @@ import com.cesar.integra.model.Group;
 import com.cesar.integra.service.GuideService;
 import com.cesar.integra.service.UserService;
 import com.cesar.integra.service.GroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/guide")
 public class GuideController {
+    @Autowired
     private UserService userService;
+    @Autowired
     private GuideService guideService;
+    @Autowired
     private GroupService groupService;
 
 
@@ -52,7 +56,16 @@ public class GuideController {
 
     @PutMapping("/{id}/edit")
     public ResponseEntity<Guide> updateGuide(@PathVariable int id, @RequestBody Guide guide){
-        Optional.ofNullable(guideService.find(id))
+        Optional.ofNullable(guide)
+                .filter(g -> g.getId() != 0)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Guide ID"));
+
+        return guideService.find(id)
+                .map(existingGuide -> {
+                    guideService.save(guide);
+                    return ResponseEntity.ok(guide);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping

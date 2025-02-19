@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -38,6 +39,12 @@ public class JpaActivity implements Serializable {
 
     @Column
     private float cost;
+
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaGroup> groups;
+
+    @OneToMany(mappedBy = "activity", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaParticipant> participants;
 
     public JpaActivity() {
 
