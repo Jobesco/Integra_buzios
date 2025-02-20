@@ -24,7 +24,7 @@ public class RegistrationController {
 
     @PostMapping("/newRegistration")
     public ResponseEntity<Registration> createRegistration(@RequestBody Registration registration) {
-        Optional<User> user = userService.find(registration.getUser().getName());
+        Optional<User> user = userService.find(registration.getUser().getEmail());
         if(user.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

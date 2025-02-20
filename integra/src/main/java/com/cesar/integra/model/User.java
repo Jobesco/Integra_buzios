@@ -18,7 +18,7 @@ public class User implements Serializable{
     @Setter(AccessLevel.PRIVATE)
     private String password;
     private String name;
-    private List<String> management;
+    private List<String> roles;
     private String phone;
     private boolean pwd;
     private String gender;
@@ -26,34 +26,34 @@ public class User implements Serializable{
 
     public User() {}
 
-    public User(String email, String name, List<String> management,
+    public User(String email, String name, List<String> roles,
                 String phone, boolean pwd, String gender, boolean active) {
         notNull(email, "User email cannot be null");
         notNull(name, "User name cannot be null");
-        notNull(management, "User management cannot be null");
+        notNull(roles, "User roles cannot be null");
         notNull(phone, "User phone cannot be null");
         notNull(gender, "User gender cannot be null");
         this.email = email;
         this.name = name;
-        this.management = management;
+        this.roles = roles;
         this.phone = phone;
         this.pwd = pwd;
         this.gender = gender;
         this.active = active;
     }
 
-    public User(String email, String password, String name, List<String> management,
+    public User(String email, String password, String name, List<String> roles,
                 String phone, boolean pwd, String gender) {
         notNull(email, "User email cannot be null");
         notNull(name, "User name cannot be null");
         notNull(password, "User password cannot be null");
-        notNull(management, "User management cannot be null");
+        notNull(roles, "User management cannot be null");
         notNull(phone, "User phone cannot be null");
         notNull(gender, "User gender cannot be null");
         this.email = email;
         this.password = password;
         this.name = name;
-        this.management = management;
+        this.roles = roles;
         this.phone = phone;
         this.pwd = pwd;
         this.gender = gender;
@@ -64,20 +64,6 @@ public class User implements Serializable{
         this(email, name, management, phone, pwd, gender, active);
         notNull(password, "User password cannot be null");
         this.password = password;
-    }
-
-    public void addMangements(List<String> managements){
-        notNull(managements, "management cannot be null");
-        for(String management : managements){
-            this.management.add(management);
-        }
-    }
-
-    public void removeMangements(List<String> managements){
-        notNull(managements, "management cannot be null");
-        for(String management : managements){
-            this.management.remove(management);
-        }
     }
 
     public void setEncodedPassword(String encodedPassword) {

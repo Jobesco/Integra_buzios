@@ -23,7 +23,11 @@ public class JpaUser implements Serializable {
     private String name;
 
     @Column
-    private String management;
+    private String roles;
+
+    @ManyToOne
+    @JoinColumn(name = "management", referencedColumnName = "id", nullable = true)
+    private JpaManagement management;
 
     @Column
     private String phone;

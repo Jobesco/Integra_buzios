@@ -67,8 +67,8 @@ public class ParticipantController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping
-    public ResponseEntity<Participant> deleteParticipant(@RequestParam int id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Participant> deleteParticipant(@PathVariable int id) {
         Optional<Participant> existingParticipant = participantService.find(id);
         if (existingParticipant.isPresent()) {
             participantService.delete(id);
