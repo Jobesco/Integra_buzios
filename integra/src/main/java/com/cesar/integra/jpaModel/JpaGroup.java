@@ -18,7 +18,7 @@ public class JpaGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "eventName", referencedColumnName = "name")
     private JpaEvent event;
 

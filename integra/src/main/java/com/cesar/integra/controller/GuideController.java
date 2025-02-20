@@ -68,8 +68,8 @@ public class GuideController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping
-    public ResponseEntity<Guide> deleteGuideById(@RequestParam int id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Guide> deleteGuideById(@PathVariable int id) {
         Optional<Guide> existingGuide = guideService.find(id);
         if (existingGuide.isPresent()) {
             guideService.delete(id);

@@ -43,9 +43,6 @@ public class JpaActivity implements Serializable {
     @OneToMany(mappedBy = "activity", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JpaGroup> groups;
 
-    @OneToMany(mappedBy = "activity", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<JpaParticipant> participants;
-
     public JpaActivity() {
 
     }
