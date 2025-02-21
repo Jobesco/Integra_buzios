@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/auth/**").permitAll();
+                    registry.requestMatchers("/admin/**").hasRole("ADMIN");
                     registry.anyRequest().authenticated();
                 })
                 .formLogin(login -> login

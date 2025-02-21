@@ -17,9 +17,9 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerUser(String email, String rawPassword, String name, List<String> management,
+    public User registerUser(String email, String rawPassword, String name, Integer lastManagementId,List<String> management,
                              String phone, boolean pwd, String gender) {
-        User user = new User(email, name, management, phone, pwd, gender, true);
+        User user = new User(email, rawPassword, name, , lastManagementId, management, phone, pwd, gender, true);
         user.setEncodedPassword(passwordEncoder.encode(rawPassword));
         return userRepository.save(user);
     }

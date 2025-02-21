@@ -26,8 +26,11 @@ public class JpaUser implements Serializable {
     private String roles;
 
     @ManyToOne
-    @JoinColumn(name = "management", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "managementId", referencedColumnName = "id", nullable = true)
     private JpaManagement management;
+
+    @Column
+    private String managementString;
 
     @Column
     private String phone;
@@ -47,8 +50,6 @@ public class JpaUser implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JpaRegistration> registrations;
 
-    public JpaUser() {
-
-    }
+    public JpaUser() {}
 
 }

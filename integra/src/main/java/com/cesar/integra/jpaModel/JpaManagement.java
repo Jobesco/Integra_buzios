@@ -24,12 +24,19 @@ public class JpaManagement implements Serializable {
     private int hierarchy;
 
     @ManyToOne
-    @JoinColumn(name = "parentId", referencedColumnName = "id")
+    @JoinColumn(name = "parentId", referencedColumnName = "id", nullable = true)
     private JpaManagement parentId;
 
     @OneToMany(mappedBy = "management", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JpaManagement> children;
 
-    @OneToMany(mappedBy = "management", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "management", cascade = CascadeType.PERSIST)
     private List<JpaUser> users;
+
+    @PreRemove
+    private void preRemove() {
+        for (JpaUser user : users) {
+            user.setManagement(null);
+        }
+    }
 }
