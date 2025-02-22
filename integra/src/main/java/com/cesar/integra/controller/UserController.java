@@ -6,23 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("admin/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @GetMapping("/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<Map<String, Object>> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.find(email);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return user.map(u -> ResponseEntity.ok(u.toJson()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/promote/{email}")
+    public ResponseEntity<Map<String, Object>> promoteToAdmin(@PathVariable String email) {
+        Optional<User> user = userService.promoteToAdmin(email);
+        return user.map(u -> ResponseEntity.ok(u.toJson()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.findAll();
+    public ResponseEntity<List<Map<String, Object>>> getAllUsers() {
+        List<Map<String, Object>> users = userService.findAll()
+                .stream()
+                .map(User::toJson)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(users);
     }
 

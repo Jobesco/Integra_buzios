@@ -27,17 +27,18 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody User user) {
         User savedUser = userService.registerUser(
                 user.getEmail(),
                 user.getPassword(),
                 user.getName(),
+                user.getLastManagementId(),
                 user.getManagement(),
                 user.getPhone(),
                 user.isPwd(),
                 user.getGender()
         );
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.ok(savedUser.toJson());
     }
 
     @PostMapping("/login")
@@ -59,8 +60,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout() {
+    public ResponseEntity<String> logout(HttpSession session) {
         SecurityContextHolder.clearContext();
+        session.invalidate();
         return ResponseEntity.ok("Logout realizado com sucesso!");
     }
 }

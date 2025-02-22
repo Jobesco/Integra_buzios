@@ -5,6 +5,7 @@ import com.cesar.integra.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +18,29 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerUser(String email, String rawPassword, String name, Integer lastManagementId,List<String> management,
+    public User registerUser(String email, String rawPassword, String name, Integer lastManagementId, List<String> management,
                              String phone, boolean pwd, String gender) {
-        User user = new User(email, rawPassword, name, , lastManagementId, management, phone, pwd, gender, true);
-        user.setEncodedPassword(passwordEncoder.encode(rawPassword));
+        List<String> roles = List.of("USER");
+        User user = new User(email, passwordEncoder.encode(rawPassword), name, roles, lastManagementId, management, phone, pwd, gender, true);
         return userRepository.save(user);
+    }
+
+    public Optional<User> promoteToAdmin(String email) {
+        Optional<User> foundUser = userRepository.findByEmail(email);
+
+        if(foundUser.isEmpty()){
+            return Optional.empty();
+        }
+
+        User user = foundUser.get();
+        List<String> roles = new ArrayList<>(user.getRoles());
+
+        if (!roles.contains("ADMIN")) {
+            roles.add("ADMIN");
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
+        return Optional.of(user);
     }
 
     public User save(User user) {

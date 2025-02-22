@@ -27,7 +27,7 @@ public class JpaManagement implements Serializable {
     @JoinColumn(name = "parentId", referencedColumnName = "id", nullable = true)
     private JpaManagement parentId;
 
-    @OneToMany(mappedBy = "management", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentId", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JpaManagement> children;
 
     @OneToMany(mappedBy = "management", cascade = CascadeType.PERSIST)

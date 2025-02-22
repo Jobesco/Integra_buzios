@@ -31,7 +31,7 @@ public class GuideTest {
     @Test
     void testCreateGuide() {
         User user = userService.registerUser("testCreate@example.com", "password123",
-                "Test User", List.of("HR", "Finance"), "123456789", false, "Male");
+                "Test User", null, List.of("HR", "Finance"), "123456789", false, "Male");
 
         Optional<User> foundUser = userService.find(user.getEmail());
 
