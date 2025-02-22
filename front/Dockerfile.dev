@@ -1,0 +1,22 @@
+# Building app
+FROM node:18-alpine AS builder
+
+WORKDIR /
+COPY package*.json ./
+RUN npm ci
+
+
+FROM node:18-alpine AS final
+
+WORKDIR /app
+
+ENV PATH="/app/node_modules/.bin:$PATH"
+
+COPY --from=builder /node_modules ./node_modules
+COPY . .
+# RUN npm run build
+
+ENV HOSTNAME="0.0.0.0"
+ENV PORT=3015
+
+ENTRYPOINT [ "npm", "run", "dev" ]
