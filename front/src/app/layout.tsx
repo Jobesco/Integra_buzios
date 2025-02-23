@@ -22,7 +22,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 import { usePathname, useRouter } from "next/navigation";
-import { updateLID, lattesSync } from "@/app/actions";
+import { updateLID, lattesSync } from "@/app_old/actions";
 import { getLocalStorage, delLocalStorage, setLocalStorage } from "@/lib/localStorage";
 import { useEffect, useState } from "react";
 import { getInitials } from "@/lib/utils";

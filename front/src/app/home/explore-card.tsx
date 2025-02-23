@@ -87,14 +87,14 @@ export function ExploreCard(props: any) {
 }
 
 export default function ExploreCardPage() {
-  const { selectedCategory } = useContext(SelectedCategoryContext)
+  // const { selectedCategory } = useContext(SelectedCategoryContext)
   const [explore, setExplore] = useState([])
 
-  useEffect(() => {
-    fetchFromAreas(selectedCategory).then((data) => {
-      setExplore(data.slice(0, 6))
-    })
-  }, [selectedCategory])
+  // useEffect(() => {
+  //   fetchFromAreas(selectedCategory).then((data) => {
+  //     setExplore(data.slice(0, 6))
+  //   })
+  // }, [selectedCategory])
 
   // TODO use resizable and remove slice for dynamic sizes
   return (

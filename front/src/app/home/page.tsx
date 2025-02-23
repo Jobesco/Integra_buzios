@@ -1,44 +1,16 @@
 import Link from "next/link"
-import Image from "next/image"
 
-import { CircleUser, EllipsisVertical, Search, ChevronDown, ChevronUp } from "lucide-react"
-
-import { Input } from "@/components/ui/input"
-import {
-  Sheet, SheetContent, SheetTrigger, SheetTitle,
-  SheetDescription, SheetHeader
-} from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 
-import MostAccessedPage from "./most-accessed"
-import RecentCardPage from "./recent-card"
-import CategoriesList, { CategoryGrid, categoryType, TendenciesList } from "./categories"
-import Highlight, { collabsType } from "./highlight"
-import MiniSearch from "./mini-search"
-
-import { fetchAreas, fetchTendencies, fetchRecent, fetchTypes, fetchKeywords } from "../api/papers"
+import { Suspense } from "react"
 import Dialogger from "./dialogger"
 import ExploreCardPage from "./explore-card"
 
-import { SelectedCategoryProvider, HolderProvider } from "@/lib/provider"
-import { Suspense, useContext } from "react"
-import { fetchTopContributors } from "../api/collabs"
-
 export default async function Home() {
-  const recent = (await fetchRecent())[0].slice(0, 2)
-  const areas = (await fetchAreas()).map(area => ({
-    name: area.area, papers: area.papers, id: area.id
-  })).slice(0, 20)
-  const tendencies = await fetchTendencies()
-  const top_collabs = (await fetchTopContributors<collabsType>()).slice(0, 3)
-  const typeList = await fetchTypes()
-  const areaList = await fetchAreas()
-  const keywordList = await fetchKeywords()
+
 
   return (
-    <SelectedCategoryProvider ><HolderProvider>
       <div className="w-full flex flex-col">
         <div className="w-screen h-[440px] flex flex-col 
         justify-center align-center
@@ -59,7 +31,6 @@ export default async function Home() {
             promovendo o desenvolvimento do conhecimento científico.
           </h4>
 
-          <MiniSearch types={typeList} areas={areaList} keywords={keywordList}/>
 
         </div>
 
@@ -78,7 +49,6 @@ export default async function Home() {
             <Separator className="w-full bg-primary mt-5" />
           </div>
 
-          <TendenciesList className="mb-24 bg-homeBg" categories={tendencies} />
 
         </div>
 
@@ -96,7 +66,6 @@ export default async function Home() {
             <Separator className="flex h-1 bg-white mt-5 w-full" />
           </div>
 
-          <RecentCardPage recent={recent} />
 
         </div>
 
@@ -108,25 +77,11 @@ export default async function Home() {
           </div>
 
 
-          <CategoriesList className="bg-lightGrey" categories={areas} />
           <Suspense fallback={<p>Carregando...</p>}>
             <ExploreCardPage />
           </Suspense>
         </div>
-
-        {/* // TODO finish this */}
-        {/* <div id="mainBox" className="w-full h-[753px] flex flex-col
-          items-center justify-start bg-[url('/black.png')] 
-          bg-no-repeat bg-center bg-cover pt-24 px-[290px] gap-5"
-        >
-          <p className="text-white text-center text-6xl">Destaque de <br />Publicações</p>
-          <p className="text-white text-center text-lg max-w-[640px]">Os colaboradores que mais contribuíram para o avanço científico com suas publicações.</p>
-          <Highlight collabs={top_collabs} />
-
-        </div> */}
-
       </div>
-    </HolderProvider></SelectedCategoryProvider>
 
   )
 }
