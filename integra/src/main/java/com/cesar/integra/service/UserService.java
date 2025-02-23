@@ -43,6 +43,24 @@ public class UserService {
         return Optional.of(user);
     }
 
+    public Optional<User> demoteFromAdmin(String email) {
+        Optional<User> foundUser = userRepository.findByEmail(email);
+
+        if(foundUser.isEmpty()){
+            return Optional.empty();
+        }
+
+        User user = foundUser.get();
+        List<String> roles = new ArrayList<>(user.getRoles());
+
+        if (roles.contains("ADMIN")) {
+            roles.remove("ADMIN");
+            user.setRoles(roles);
+            userRepository.save(user);
+        }
+        return Optional.of(user);
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }

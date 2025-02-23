@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("admin/user")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -23,13 +23,6 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/promote/{email}")
-    public ResponseEntity<Map<String, Object>> promoteToAdmin(@PathVariable String email) {
-        Optional<User> user = userService.promoteToAdmin(email);
-        return user.map(u -> ResponseEntity.ok(u.toJson()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> getAllUsers() {
         List<Map<String, Object>> users = userService.findAll()
@@ -37,6 +30,20 @@ public class UserController {
                 .map(User::toJson)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(users);
+    }
+
+    @PutMapping("/{email}/update")
+    public ResponseEntity<Map<String, Object>> updateUser(@PathVariable String email, @RequestBody User user) {
+        Optional.ofNullable(user)
+                .filter(u-> u.getEmail() != null && !u.getEmail().trim().isEmpty())
+                .orElseThrow(() -> new RuntimeException("User email cannot be null"));
+
+        return userService.find(email)
+                .map(existingUser -> {
+                    userService.save(user);
+                    return ResponseEntity.ok(user.toJson());
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{email}/updatePassword")

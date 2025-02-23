@@ -15,13 +15,11 @@ public class JpaManagement implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
     private String particle;
-
-    @Column
-    private int hierarchy;
 
     @ManyToOne
     @JoinColumn(name = "parentId", referencedColumnName = "id", nullable = true)
