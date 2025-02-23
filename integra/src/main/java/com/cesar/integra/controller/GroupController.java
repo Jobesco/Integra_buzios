@@ -42,7 +42,6 @@ public class GroupController {
         return ResponseEntity.ok(savedGroup);
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Group> getGroup(@PathVariable int id) {
         Optional<Group> group = groupService.findById(id);
@@ -52,6 +51,12 @@ public class GroupController {
     @GetMapping
     public ResponseEntity<List<Group>> getAllGroups() {
         List<Group> groups = groupService.findAll();
+        return ResponseEntity.ok(groups);
+    }
+
+    @GetMapping("/inActivity/{activityTitle}")
+    public ResponseEntity<List<Group>> getGroupsByActivityTitle(@PathVariable String activityTitle) {
+        List<Group> groups = groupService.findByActivity_Title(activityTitle);
         return ResponseEntity.ok(groups);
     }
 

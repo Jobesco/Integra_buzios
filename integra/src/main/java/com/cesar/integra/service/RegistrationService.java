@@ -28,6 +28,14 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
+    public List<Registration> findRegistrationsByUser_EmailAndStatusEquals(String userEmail, String status) {
+        return registrationRepository.findRegistrationsByUser_EmailAndStatusEquals(userEmail, status);
+    }
+
+    public List<Registration> findRegistrationsByActivity_TitleAndAvailableDaysContains(String activityTitle, String day) {
+        return registrationRepository.findRegistrationByActivity_TitleAndAvailableDaysContains(activityTitle, day);
+    }
+
     public void delete(int id) {
         registrationRepository.delete(id);
     }

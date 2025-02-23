@@ -8,5 +8,6 @@ public interface ActivityRepository {
     public Activity save(Activity activity);
     public Optional<Activity> findByTitle(String title);
     public List<Activity> findAll();
+    public List<Activity> findActivitiesByEvent(String eventName);
     public void delete(String title);
 }

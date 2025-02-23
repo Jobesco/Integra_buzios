@@ -54,6 +54,18 @@ public class RegistrationController {
         return ResponseEntity.ok(registrations);
     }
 
+    @GetMapping("/fromUser/{userEmail}/{status}")
+    public ResponseEntity<List<Registration>> getRegistrationByUser_EmailAndStatus(@PathVariable String userEmail, @PathVariable String status) {
+        List<Registration> registrations = registrationService.findRegistrationsByUser_EmailAndStatusEquals(userEmail, status);
+        return ResponseEntity.ok(registrations);
+    }
+
+    @GetMapping("/fromActivity/{title}/at/{day}")
+    public ResponseEntity<List<Registration>> getRegistrationByActivity_TitleAndAvailableDays(@PathVariable String title, @PathVariable String day) {
+        List<Registration> registrations = registrationService.findRegistrationsByActivity_TitleAndAvailableDaysContains(title, day);
+        return ResponseEntity.ok(registrations);
+    }
+
     @PutMapping("{id}/edit")
     public ResponseEntity<Registration> updateRegistration(@PathVariable int id, @RequestBody Registration registration) {
         Optional.ofNullable(registration)

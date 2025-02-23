@@ -47,6 +47,22 @@ public class JpaRegistrationRepository implements RegistrationRepository {
     }
 
     @Override
+    public List<Registration> findRegistrationsByUser_EmailAndStatusEquals(String userEmail, String status) {
+        return jpaRegistrationRepositoryDefault.findRegistrationsByUser_EmailAndStatusEquals(userEmail, status)
+                .stream()
+                .map(RegistrationMapper::toRegistration)
+                .toList();
+    }
+
+    @Override
+    public List<Registration> findRegistrationByActivity_TitleAndAvailableDaysContains(String activityTitle, String day){
+        return jpaRegistrationRepositoryDefault.findJpaRegistrationByActivity_TitleAndAvailableDaysContains(activityTitle, day)
+                .stream()
+                .map(RegistrationMapper::toRegistration)
+                .toList();
+    }
+
+    @Override
     public void delete(int id) {
         isTrue(id > 0, "id must be greater than 0");
 

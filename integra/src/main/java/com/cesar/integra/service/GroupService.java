@@ -27,6 +27,10 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    public List<Group> findByActivity_Title(String activity_Title) {
+        return groupRepository.findByActivity_Title(activity_Title);
+    }
+
     public void delete(int id) {
         groupRepository.delete(id);
     }

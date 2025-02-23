@@ -43,7 +43,17 @@ public class JpaActivityRepository implements ActivityRepository {
     public List<Activity> findAll(){
         return jpaActivityRepositoryDefault.findAll().stream()
                 .map(ActivityMapper::toActivity)
-                .collect(Collectors.toList());
+                .toList();
+    }
+
+    @Override
+    public List<Activity> findActivitiesByEvent(String eventName){
+        notNull(eventName, "Event must not be null");
+
+        return jpaActivityRepositoryDefault.findActivitiesByEvent(eventName)
+                .stream()
+                .map(ActivityMapper::toActivity)
+                .toList();
     }
 
     @Override

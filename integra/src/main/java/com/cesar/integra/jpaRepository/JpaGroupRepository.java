@@ -7,6 +7,7 @@ import com.cesar.integra.repository.GroupRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
+
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
@@ -39,6 +40,15 @@ public class JpaGroupRepository implements GroupRepository {
     @Override
     public List<Group> findAll() {
         return jpaGroupRepositoryDefault.findAll().stream()
+                .map(GroupMapper::toGroup)
+                .toList();
+    }
+
+    public List<Group> findByActivity_Title(String activity_Title) {
+        notNull(activity_Title, "Activity_Title must not be null");
+
+        return jpaGroupRepositoryDefault.findByActivity_Title(activity_Title)
+                .stream()
                 .map(GroupMapper::toGroup)
                 .toList();
     }

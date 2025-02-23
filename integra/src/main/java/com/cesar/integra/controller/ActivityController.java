@@ -38,6 +38,12 @@ public class ActivityController {
         return ResponseEntity.ok(activities);
     }
 
+    @GetMapping("/byEvent/{eventName}")
+    public ResponseEntity<List<Activity>> getActivitiesByEvent(@PathVariable String eventName) {
+        List<Activity> activities = activityService.findActivitiesByEvent(eventName);
+        return ResponseEntity.ok(activities);
+    }
+
     @PutMapping(("/{title}/edit"))
     public ResponseEntity<Activity> uptadeActivity(@PathVariable String title, @RequestBody Activity activity) {
         Optional.ofNullable(activity)

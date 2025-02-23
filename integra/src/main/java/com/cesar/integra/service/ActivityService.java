@@ -27,6 +27,10 @@ public class ActivityService {
         return activityRepository.findAll();
     }
 
+    public List<Activity> findActivitiesByEvent(String eventName) {
+        return activityRepository.findActivitiesByEvent(eventName);
+    }
+
     public void delete(String title) {
         activityRepository.delete(title);
     }

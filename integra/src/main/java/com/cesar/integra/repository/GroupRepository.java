@@ -9,5 +9,6 @@ public interface GroupRepository {
     public Group save(Group group);
     public Optional<Group> findById(int id);
     public List<Group> findAll();
+    public List<Group> findByActivity_Title(String activity_Title);
     public void delete(int id);
 }
