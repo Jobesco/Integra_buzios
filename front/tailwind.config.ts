@@ -12,19 +12,20 @@ const config = {
   prefix: "",
   theme: {
     colors: {
-      'orange': '#FF6002',
-      transparent: 'transparent',
-      'white': '#FFFFFF',
-      'black': '#000000',
-      'grey': '#393939',
-      'darkOrange': '#DD3906',
-      'grey2': '#3E3232BF',
-      lightGrey: '#F5F5F5',
-      blue: '#5379EB',
-      grey3: '#666666',
-      alternativeRed: '#F7580B14',
-      redBorder: '#F7580B',
-      catButton: '#F2F8F7'
+      background: '#FFFFFF',
+      surface: '#F0F0F0',
+      primary: '#0E39F7',
+      primary100: '#CEDBFE',
+      primary300: '#6D8DFC',
+      primary700: '#0720B1',
+      primary900: '#020F76', // ? admin color
+      secondary: '#FF9F1C',
+      secondary100: '#FFF3D1',
+      secondary300: '#FFD176',
+      secondary700: '#B7610E',
+      secondary900: '#7A3405',
+      success: '#66BB0B',
+      error: '#EE3A3A',
     },
     container: { // TODO study this
       center: true,
