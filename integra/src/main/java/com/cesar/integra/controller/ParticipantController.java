@@ -3,6 +3,7 @@ package com.cesar.integra.controller;
 import com.cesar.integra.model.Group;
 import com.cesar.integra.model.Participant;
 import com.cesar.integra.model.Registration;
+import com.cesar.integra.model.User;
 import com.cesar.integra.service.GroupService;
 import com.cesar.integra.service.ParticipantService;
 import com.cesar.integra.service.RegistrationService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -51,6 +53,15 @@ public class ParticipantController {
     public ResponseEntity<List<Participant>> getAllParticipants() {
         List<Participant> participants = participantService.findAll();
         return ResponseEntity.ok(participants);
+    }
+
+    @GetMapping("/inGroup/{groupId}")
+    public ResponseEntity<List<Map<String, Object>>> findUsersInGroup(@PathVariable int groupId) {
+        List<Map<String, Object>> users = participantService.findUsersInGroup(groupId)
+                .stream()
+                .map(User::toJson)
+                .toList();
+        return ResponseEntity.ok(users);
     }
 
     @PutMapping("/{id}/edit")

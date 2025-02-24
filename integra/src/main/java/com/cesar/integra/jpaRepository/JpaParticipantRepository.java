@@ -3,9 +3,11 @@ package com.cesar.integra.jpaRepository;
 import com.cesar.integra.jpaModel.JpaParticipant;
 import com.cesar.integra.mapper.ParticipantMapper;
 import com.cesar.integra.model.Participant;
+import com.cesar.integra.model.User;
 import com.cesar.integra.repository.ParticipantRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +46,20 @@ public class JpaParticipantRepository implements ParticipantRepository {
         return jpaParticipantRepositoryDefault.findAll().stream()
                 .map(ParticipantMapper::toParticipant)
                 .toList();
+    }
+
+    @Override
+    public List<User> findUsersInGroup(int groupId){
+        List<Participant> participants = jpaParticipantRepositoryDefault.findByGroup_Id(groupId).stream()
+                .map(ParticipantMapper::toParticipant)
+                .toList();
+
+        List<User> users = new ArrayList<>();
+        for (Participant participant : participants) {
+            users.add(participant.getRegistration().getUser());
+        }
+
+        return users;
     }
 
     @Override

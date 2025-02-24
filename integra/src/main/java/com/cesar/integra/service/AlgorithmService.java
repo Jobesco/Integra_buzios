@@ -3,7 +3,6 @@ package com.cesar.integra.service;
 import com.cesar.integra.model.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -29,8 +28,8 @@ public class AlgorithmService {
     }
 
     @Transactional
-    public void runAll(){
-        List<Activity> activities = activityService.findAll();
+    public void runAllFromEvent(String eventTitle){
+        List<Activity> activities = activityService.findActivitiesByEvent(eventTitle);
 
         for(Activity activity : activities){
             runForActivity(activity.getTitle());
@@ -42,7 +41,9 @@ public class AlgorithmService {
         List<Group> groups = groupService.findByActivity_Title(activityTitle);
 
         for (Group group : groups) {
-            runGroup(group);
+            if(!group.getStatus().equals("FECHADO")){
+                runGroup(group);
+            }
         }
     }
 
@@ -139,6 +140,11 @@ public class AlgorithmService {
     }
 
      public void registerParticipantsInGroup(Group group, List<Registration> registrations) {
+
+         if(registrations.size() == group.getActivity().getTickets()) {
+             group.setStatus("FECHADO");
+             group = groupService.save(group);
+         }
 
         for(Registration registration : registrations) {
             if(registration != null) {

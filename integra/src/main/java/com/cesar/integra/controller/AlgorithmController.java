@@ -11,14 +11,14 @@ public class AlgorithmController {
     @Autowired
     private AlgorithmService algorithmService;
 
-    @PostMapping
-    public ResponseEntity<Void> runAlgorithm(){
-        algorithmService.runAll();
+    @PostMapping("/{eventTitle}")
+    public ResponseEntity<Void> runAlgorithm(@PathVariable String eventTitle){
+        algorithmService.runAllFromEvent(eventTitle);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{activityTitle}")
-    public ResponseEntity<Void> runAlgorithm(@PathVariable String activityTitle) {
+    @PostMapping("/forActivity/{activityTitle}")
+    public ResponseEntity<Void> runAlgorithmForActivity(@PathVariable String activityTitle) {
         algorithmService.runForActivity(activityTitle);
         return ResponseEntity.ok().build();
     }

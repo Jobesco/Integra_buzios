@@ -28,7 +28,7 @@ public class UserController {
         List<Map<String, Object>> users = userService.findAll()
                 .stream()
                 .map(User::toJson)
-                .collect(Collectors.toList());
+                .toList();
         return ResponseEntity.ok(users);
     }
 
