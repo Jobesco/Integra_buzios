@@ -12,6 +12,7 @@ const config = {
   prefix: "",
   theme: {
     colors: {
+      onSurface: '#000000',
       background: '#FFFFFF',
       surface: '#F0F0F0',
       primary: '#0E39F7',

@@ -1,7 +1,7 @@
 # Building app
 FROM node:18-alpine AS builder
 
-WORKDIR /
+WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
@@ -12,7 +12,7 @@ WORKDIR /app
 
 ENV PATH="/app/node_modules/.bin:$PATH"
 
-COPY --from=builder /node_modules ./node_modules
+COPY --from=builder /app/node_modules /app/node_modules
 COPY . .
 # RUN npm run build
 
