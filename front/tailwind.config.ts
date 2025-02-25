@@ -27,9 +27,9 @@ const config = {
       success: '#66BB0B',
       error: '#EE3A3A',
     },
-    container: { // TODO study this
+    container: {
       center: true,
-      padding: "2rem",
+      padding: "8rem",
       screens: {
         "2xl": "1440px",
       },
@@ -78,6 +78,16 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      components: { // TODO change this to something useful!!
+        main: {
+          center: true,
+          padding: "8rem",
+          screens: {
+            "2xl": "1440px",
+          },
+        }
+      },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

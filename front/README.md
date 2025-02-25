@@ -16,7 +16,7 @@ docker run -d \
 -h 0.0.0.0 \
 -p 3015:3015 \
 -v ./src:/app/src \
--v /app/node_modules \
+-v node_modules:/app/node_modules \
 --name front-integra \
 --network bridge \
 front:latest
