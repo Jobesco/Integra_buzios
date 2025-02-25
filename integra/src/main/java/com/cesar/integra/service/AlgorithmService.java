@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlgorithmService {
@@ -141,14 +142,16 @@ public class AlgorithmService {
 
      public void registerParticipantsInGroup(Group group, List<Registration> registrations) {
 
-         if(registrations.size() == group.getActivity().getTickets()) {
+        Optional<Group> groupFound = groupService.findById(group.getId());
+
+         if(groupFound.isPresent() && (registrations.size() == groupFound.get().getActivity().getTickets())) {
              group.setStatus("FECHADO");
              group = groupService.save(group);
          }
 
         for(Registration registration : registrations) {
             if(registration != null) {
-                Participant participant = new Participant(group, registration);
+                Participant participant = new Participant(group, registration, null);
                 registration.setStatus("ALOCADO");
 
                 registrationService.save(registration);

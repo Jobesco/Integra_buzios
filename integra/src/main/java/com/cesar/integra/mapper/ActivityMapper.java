@@ -19,6 +19,8 @@ public class ActivityMapper {
         jpaActivity.setTickets(activity.getTickets());
         jpaActivity.setGuidesNumber(activity.getGuidesNumber());
         jpaActivity.setPlace(activity.getPlace());
+        jpaActivity.setActive(activity.isActive());
+        jpaActivity.setVerifyGuide(activity.isVerifyGuide());
         jpaActivity.setCost(activity.getCost());
 
         return jpaActivity;
@@ -36,6 +38,8 @@ public class ActivityMapper {
                 jpaActivity.getTickets(),
                 jpaActivity.getGuidesNumber(),
                 jpaActivity.getPlace(),
+                jpaActivity.isActive(),
+                jpaActivity.isVerifyGuide(),
                 jpaActivity.getCost()
                 );
     }

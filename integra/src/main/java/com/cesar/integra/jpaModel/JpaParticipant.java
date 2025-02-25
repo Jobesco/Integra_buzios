@@ -25,6 +25,10 @@ public class JpaParticipant implements Serializable {
     @JoinColumn(name = "registrationId", referencedColumnName = "id")
     private JpaRegistration registration;
 
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "email")
+    private JpaUser user;
+
     public JpaParticipant() {
 
     }

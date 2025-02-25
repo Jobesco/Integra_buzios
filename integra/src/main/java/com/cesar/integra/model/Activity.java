@@ -18,14 +18,16 @@ public class Activity implements Serializable {
     private int tickets;
     private int guidesNumber;
     private String place;
+    private boolean active;
+    private boolean verifyGuide;
     private float cost;
 
     public Activity(){
 
     }
 
-    public Activity(String title, String description, String pwdDescription,
-                    boolean pwdPriority, int effortLevel, int tickets, int guidesNumber, String place, float cost) {
+    public Activity(String title, String description, String pwdDescription, boolean pwdPriority, int effortLevel,
+                    int tickets, int guidesNumber, String place, boolean active, boolean verifyGuide, float cost) {
         notNull(title, " Activity title must not be null");
         notNull(description, " Activity description must not be null");
         isTrue((tickets > 0), "Activity tickets must be greater than 0");
@@ -39,6 +41,8 @@ public class Activity implements Serializable {
         this.tickets = tickets;
         this.guidesNumber = guidesNumber;
         this.place = place;
+        this.active = active;
+        this.verifyGuide = verifyGuide;
         this.cost = cost;
     }
 

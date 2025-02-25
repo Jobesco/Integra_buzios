@@ -50,6 +50,9 @@ public class JpaUser implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<JpaRegistration> registrations;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<JpaParticipant> participants;
+
     public JpaUser() {}
 
 }

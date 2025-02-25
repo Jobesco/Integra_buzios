@@ -37,7 +37,7 @@ public class ParticipantController {
             return ResponseEntity.notFound().build();
         }
 
-        Participant newParticipant = new Participant(group.get(), participant.getRegistration());
+        Participant newParticipant = new Participant(group.get(), participant.getRegistration(), null);
 
         Participant savedParticipant = participantService.save(newParticipant);
         return ResponseEntity.ok(savedParticipant);

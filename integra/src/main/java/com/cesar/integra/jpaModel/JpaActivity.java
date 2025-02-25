@@ -38,6 +38,12 @@ public class JpaActivity implements Serializable {
     private String place;
 
     @Column
+    private boolean active;
+
+    @Column
+    private boolean verifyGuide;
+
+    @Column
     private float cost;
 
     @OneToMany(mappedBy = "activity", cascade = CascadeType.REMOVE, orphanRemoval = true)
