@@ -9,14 +9,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, build the image with `docker build --tag "front:latest" --file Dockerfile.dev .`
 
-Then, run the server with docker:
+Then, run the server with docker on a bash terminal:
 ```bash
 docker run -d \
 --env-file .env.development \
 -h 0.0.0.0 \
 -p 3015:3015 \
--v $(pwd):/app \
--v /app/node_modules \
+-v ./src:/app/src \
+-v node_modules:/app/node_modules \
 --name front-integra \
 --network bridge \
 front:latest
