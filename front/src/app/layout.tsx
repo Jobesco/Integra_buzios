@@ -95,8 +95,8 @@ export default function RootLayout({
             href="/home"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
-            <Image width="40" height="50" src="/group.png" alt="Buzios" />
-            <Image width="107" height="30" src="/integra.png" alt="Integra" />
+            <Image width="40" height="50" src="/adm/group.png" alt="Buzios" />
+            <Image width="107" height="30" src="/adm/integra.png" alt="Integra" />
           </Link>
             
           <Menubar className="rounded-full h-12 text-primary900 
