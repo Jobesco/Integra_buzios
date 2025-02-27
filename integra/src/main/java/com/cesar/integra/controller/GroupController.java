@@ -80,7 +80,6 @@ public class GroupController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    //Testar
     @GetMapping("/selectedGroups/{eventName}")
     public ResponseEntity<List<SelectedGroup>> getSelectedGroups(@PathVariable String eventName) {
         List<Group> groups = groupService.findByEvent_Name(eventName);

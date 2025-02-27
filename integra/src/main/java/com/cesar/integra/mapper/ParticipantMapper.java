@@ -3,6 +3,8 @@ package com.cesar.integra.mapper;
 import com.cesar.integra.jpaModel.JpaParticipant;
 import com.cesar.integra.model.Participant;
 
+import java.util.Optional;
+
 import static org.springframework.util.Assert.notNull;
 
 public class ParticipantMapper {
@@ -13,8 +15,17 @@ public class ParticipantMapper {
 
         jpaParticipant.setId(participant.getId());
         jpaParticipant.setGroup(GroupMapper.toJpaGroup(participant.getGroup()));
-        jpaParticipant.setRegistration(RegistrationMapper.toJpaRegistration(participant.getRegistration()));
-        jpaParticipant.setUser(UserMapper.toJpaUser(participant.getUser()));
+        jpaParticipant.setRegistration(
+                Optional.ofNullable(participant.getRegistration())
+                        .map(RegistrationMapper::toJpaRegistration)
+                        .orElse(null)
+        );
+
+        jpaParticipant.setUser(
+                Optional.ofNullable(participant.getUser())
+                        .map(UserMapper::toJpaUser)
+                        .orElse(null)
+        );
 
         return jpaParticipant;
     }
@@ -25,8 +36,12 @@ public class ParticipantMapper {
         return new Participant(
                 jpaParticipant.getId(),
                 GroupMapper.toGroup(jpaParticipant.getGroup()),
-                RegistrationMapper.toRegistration(jpaParticipant.getRegistration()),
-                UserMapper.toUser(jpaParticipant.getUser())
+                Optional.ofNullable(jpaParticipant.getRegistration())
+                        .map(RegistrationMapper::toRegistration)
+                        .orElse(null),
+                Optional.ofNullable(jpaParticipant.getUser())
+                        .map(UserMapper::toUser)
+                        .orElse(null)
         );
     }
 }

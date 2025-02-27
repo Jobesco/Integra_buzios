@@ -42,7 +42,7 @@ public class AlgorithmService {
         List<Group> groups = groupService.findByActivity_Title(activityTitle);
 
         for (Group group : groups) {
-            if(!group.getStatus().equals("FECHADO")){
+            if(group.getStatus().equals("ABERTO")){
                 runGroup(group);
             }
         }
