@@ -5,18 +5,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-**OBS:** If you're on *DOCKER DESKTOP*, run `git config core.protectNTFS false`.
+**OBS:** If you're on *DOCKER DESKTOP*, run `git config core.protectNTFS false`
 
-First, build the image with `docker build --tag "front:latest" --file Dockerfile.dev .`.
+First, build the image with `docker build --tag "front:latest" --file Dockerfile.dev .`
 
-Then, run the server with docker:
+Then, run the server with docker on a bash terminal:
 ```bash
 docker run -d \
 --env-file .env.development \
 -h 0.0.0.0 \
 -p 3015:3015 \
 -v ./src:/app/src \
--v /app/node_modules \
+-v node_modules:/app/node_modules \
 --name front-integra \
 --network bridge \
 front:latest

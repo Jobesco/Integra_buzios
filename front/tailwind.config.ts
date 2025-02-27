@@ -12,6 +12,7 @@ const config = {
   prefix: "",
   theme: {
     colors: {
+      onSurface: '#000000',
       background: '#FFFFFF',
       surface: '#F0F0F0',
       primary: '#0E39F7',
@@ -27,14 +28,28 @@ const config = {
       success: '#66BB0B',
       error: '#EE3A3A',
     },
-    container: { // TODO study this
+    container: {
       center: true,
-      padding: "2rem",
+      padding: "8rem",
       screens: {
         "2xl": "1440px",
       },
     },
     extend: {
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
@@ -78,19 +93,14 @@ const config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      components: { // TODO change this to something useful!!
+        main: {
+          center: true,
+          padding: "8rem",
+          screens: {
+            "2xl": "1440px",
+          },
+        }
       },
     },
   },
