@@ -24,10 +24,12 @@ spring.datasource.password={sua_senha}
 
 1. Para instalar as dependências do projeto execute o seguinte comando na pasta integra:
    - mvn clean install
-   ou
+   
+ou
    - ./mvnw clean install
 
 2. Para executar a aplicação spring:
    - mvn spring-boot:run
-   ou
+   
+ou
    - ./mvnw spring-boot:run
