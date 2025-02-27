@@ -1,6 +1,6 @@
 {
-  "name": "hub-front",
-  "version": "0.1.0",
+  "name": "integra_buzios",
+  "version": "1.0",
   "private": true,
   "scripts": {
     "dev": "next dev -p 3015",
@@ -26,6 +26,7 @@
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-progress": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.2.3",
+    "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
