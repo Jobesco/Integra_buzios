@@ -36,6 +36,10 @@ public class RegistrationService {
         return registrationRepository.findRegistrationByActivity_TitleAndAvailableDaysContains(activityTitle, day);
     }
 
+    public void endRegistration(){
+        registrationRepository.endRegistrations();
+    }
+
     public void delete(int id) {
         registrationRepository.delete(id);
     }

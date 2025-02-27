@@ -11,5 +11,6 @@ public interface RegistrationRepository {
     public List<Registration> findAll();
     public List<Registration> findRegistrationsByUser_EmailAndStatusEquals(String userEmail, String status);
     public List<Registration> findRegistrationByActivity_TitleAndAvailableDaysContains(String activityTitle, String day);
+    public void endRegistrations();
     public void delete(int id);
 }

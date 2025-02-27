@@ -11,10 +11,12 @@ import java.util.Optional;
 public class EventService {
     private final EventRepository eventRepository;
     private final GroupService groupService;
+    private final RegistrationService registrationService;
 
-    public EventService(EventRepository eventRepository, GroupService groupService) {
+    public EventService(EventRepository eventRepository, GroupService groupService, RegistrationService registrationService) {
         this.eventRepository = eventRepository;
         this.groupService = groupService;
+        this.registrationService = registrationService;
     }
 
     public Event save(Event event) {
@@ -27,8 +29,10 @@ public class EventService {
         if (foundEvent.isPresent()) {
             Event event = foundEvent.get();
             event.setActive(false);
-            groupService.endGroupsInEvent(eventName);
-            return eventRepository.save(event);
+            Event savedEvent = eventRepository.save(event);
+            groupService.endGroupsInEvent();
+            registrationService.endRegistration();
+            return savedEvent;
         }
 
         return null;

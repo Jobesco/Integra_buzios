@@ -31,8 +31,12 @@ public class GroupService {
         return groupRepository.findByActivity_Title(activity_Title);
     }
 
-    public void endGroupsInEvent(String eventName) {
-        groupRepository.endGroupsInEvent(eventName);
+    public void endGroupsInEvent() {
+        groupRepository.endGroupsInEvent();
+    }
+
+    public List<Group> findByEvent_Name(String event_Name) {
+        return groupRepository.findByEvent_Name(event_Name);
     }
 
     public void delete(int id) {

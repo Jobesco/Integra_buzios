@@ -37,7 +37,7 @@ public class JpaEvent{
     @Column
     private LocalDate realizationFormEndDate;
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)
     private List<JpaGroup> groups;
 
     public JpaEvent(){

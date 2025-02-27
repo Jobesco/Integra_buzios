@@ -63,6 +63,11 @@ public class JpaRegistrationRepository implements RegistrationRepository {
     }
 
     @Override
+    public void endRegistrations(){
+        jpaRegistrationRepositoryDefault.endRegistrations();
+    }
+
+    @Override
     public void delete(int id) {
         isTrue(id > 0, "id must be greater than 0");
 

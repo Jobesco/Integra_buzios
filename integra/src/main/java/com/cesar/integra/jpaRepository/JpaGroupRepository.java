@@ -45,18 +45,25 @@ public class JpaGroupRepository implements GroupRepository {
     }
 
     @Override
-    public List<Group> findByActivity_Title(String activity_Title) {
-        notNull(activity_Title, "Activity_Title must not be null");
+    public List<Group> findByActivity_Title(String activityTitle) {
+        notNull(activityTitle, "ActivityTitle must not be null");
 
-        return jpaGroupRepositoryDefault.findByActivity_Title(activity_Title)
+        return jpaGroupRepositoryDefault.findByActivity_Title(activityTitle)
                 .stream()
                 .map(GroupMapper::toGroup)
                 .toList();
     }
 
     @Override
-    public void endGroupsInEvent(String eventName){
-        jpaGroupRepositoryDefault.endGroupsInEvent(eventName);
+    public List<Group> findByEvent_Name(String eventName){
+        return jpaGroupRepositoryDefault.findByEvent_Name(eventName).stream()
+                .map(GroupMapper::toGroup)
+                .toList();
+    }
+
+    @Override
+    public void endGroupsInEvent(){
+        jpaGroupRepositoryDefault.endGroupsInEvent();
     }
 
     @Override

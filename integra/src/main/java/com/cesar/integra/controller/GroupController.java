@@ -3,13 +3,17 @@ package com.cesar.integra.controller;
 import com.cesar.integra.model.Group;
 import com.cesar.integra.model.Event;
 import com.cesar.integra.model.Activity;
+import com.cesar.integra.model.Participant;
 import com.cesar.integra.service.GroupService;
 import com.cesar.integra.service.EventService;
 import com.cesar.integra.service.ActivityService;
+import com.cesar.integra.service.ParticipantService;
+import com.cesar.integra.util.SelectedGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 
@@ -22,6 +26,8 @@ public class GroupController {
     private  ActivityService activityService;
     @Autowired
     private  EventService eventService;
+    @Autowired
+    private ParticipantService participantService;
 
     @PostMapping("/newGroup")
     public ResponseEntity<Group> createGroup(@RequestBody Group group) {
@@ -72,6 +78,24 @@ public class GroupController {
                     return ResponseEntity.ok(group);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //Testar
+    @GetMapping("/selectedGroups/{eventName}")
+    public ResponseEntity<List<SelectedGroup>> getSelectedGroups(@PathVariable String eventName) {
+        List<Group> groups = groupService.findByEvent_Name(eventName);
+        List<SelectedGroup> selectedGroups = new ArrayList<>();
+        for (Group group : groups) {
+            SelectedGroup selectedGroup = new SelectedGroup();
+            selectedGroup.setParticipants(participantService.findParticipantsInGroup(group)
+                    .stream()
+                    .map(Participant::nameEmailAndGroup)
+                    .toList());
+            selectedGroup.setGroup(group);
+            selectedGroups.add(selectedGroup);
+        }
+
+        return ResponseEntity.ok(selectedGroups);
     }
 
     @DeleteMapping("/{id}")

@@ -13,5 +13,6 @@ public interface ParticipantRepository {
     public Optional<Participant> findById(int id);
     public List<Participant> findAll();
     public List<User> findUsersInGroup(int groupId);
+    public List<Participant> findParticipantsInGroup(int groupId);
     public void delete(int id);
 }

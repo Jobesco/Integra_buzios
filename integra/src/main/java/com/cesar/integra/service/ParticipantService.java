@@ -34,6 +34,10 @@ public class ParticipantService {
         return participantRepository.findUsersInGroup(groupId);
     }
 
+    public List<Participant> findParticipantsInGroup(Group group) {
+        return participantRepository.findParticipantsInGroup(group.getId());
+    }
+
     public void delete(int id) {
         participantRepository.delete(id);
     }

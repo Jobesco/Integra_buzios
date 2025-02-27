@@ -63,6 +63,13 @@ public class JpaParticipantRepository implements ParticipantRepository {
     }
 
     @Override
+    public List<Participant> findParticipantsInGroup(int groupId){
+        return jpaParticipantRepositoryDefault.findByGroup_Id(groupId).stream()
+                .map(ParticipantMapper::toParticipant)
+                .toList();
+    }
+
+    @Override
     public void delete(int id) {
         isTrue(id > 0, "Id must be grater than 0");
 

@@ -4,6 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
@@ -30,5 +34,13 @@ public class Participant {
         this(group, registration, user);
         isTrue(id >= 0, "Participant id cannot be negative");
         this.id = id;
+    }
+
+    public Map<String, Object> nameEmailAndGroup(){
+        Map<String, Object> participantJson = new HashMap<>();
+        participantJson.put("name", this.user.getName());
+        participantJson.put("email", this.user.getEmail());
+        participantJson.put("group", this.group.getId());
+        return participantJson;
     }
 }

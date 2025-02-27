@@ -10,10 +10,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface JpaGroupRepositoryDefault extends JpaRepository<JpaGroup, Integer> {
-    public List<JpaGroup> findByActivity_Title(String activity_Title);
+    List<JpaGroup> findByActivity_Title(String activity_Title);
+
+    List<JpaGroup> findByEvent_Name(String event_Name);
 
     @Modifying
     @Transactional
-    @Query("UPDATE JpaGroup g SET g.status = 'FINALIZADO' WHERE g.event.name = :eventName")
-    void endGroupsInEvent(@Param("eventName") String eventName);
+    @Query("UPDATE JpaGroup g SET g.status = 'FINALIZADO' WHERE g.status != 'FINALIZADO'")
+    void endGroupsInEvent();
 }

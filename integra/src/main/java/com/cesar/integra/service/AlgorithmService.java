@@ -53,6 +53,8 @@ public class AlgorithmService {
                 group.getActivity().getTitle(), group.getRealizationDateTime().toLocalDate().toString()
         ));
 
+        candidates.removeIf(candidate -> !candidate.getStatus().equals("PENDENTE"));
+
         if(group.getActivity().isPwdPriority()){
             candidates.sort(Comparator.comparing((Registration c) -> c.getUser().isPwd()).reversed());
         }
