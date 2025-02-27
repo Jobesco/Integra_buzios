@@ -44,7 +44,7 @@ export default function Dashboard() {
                   <span className="text-xs">Evento {index + 1}</span>
                 </span>
                 <Button className="bg-primary900 text-background 
-                  px-10 py-1 h-9 rounded-full">Gerenciar</Button>
+                  px-10 py-1 h-9 rounded-full" onClick={() => push(`/adm/event/manage?id=${'idgoeshere'}`)}>Gerenciar</Button>
               </div>
             ))}
           </div>
