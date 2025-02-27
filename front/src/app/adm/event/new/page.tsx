@@ -162,11 +162,15 @@ export function Activities() {
         >
           Selecionar todas
         </label>
-      <Button className={cn("hover:bg-secondary300 hover:text-surface w-1/2 rounded-full py-2",
-        "px-12 bg-primary text-onSurface",
-      )}>
-        <PlusIcon />Adicionar nova
-      </Button>
+        <Button className={cn("hover:bg-secondary300", 
+          "hover:text-surface w-1/2 rounded-full py-2",
+          "px-12 bg-primary text-background",
+        )}>
+          <PlusIcon className="text-background" />Adicionar nova
+        </Button>
+      </div>
+      <div className="rounded-xl border-1 border-collie">
+        test
       </div>
     </div>
   )
