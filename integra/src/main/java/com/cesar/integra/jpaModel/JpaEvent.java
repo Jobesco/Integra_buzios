@@ -17,6 +17,9 @@ public class JpaEvent{
     private String name;
 
     @Column
+    private boolean active;
+
+    @Column
     private LocalDate guideFormStartDate;
 
     @Column

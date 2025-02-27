@@ -31,6 +31,10 @@ public class ActivityService {
         return activityRepository.findActivitiesByEvent(eventName);
     }
 
+    public void reverseStatus(List<String> activityTitles) {
+        activityRepository.reverseStatus(activityTitles);
+    }
+
     public void delete(String title) {
         activityRepository.delete(title);
     }

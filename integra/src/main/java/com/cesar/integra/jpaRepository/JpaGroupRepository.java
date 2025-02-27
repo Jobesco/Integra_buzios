@@ -44,6 +44,7 @@ public class JpaGroupRepository implements GroupRepository {
                 .toList();
     }
 
+    @Override
     public List<Group> findByActivity_Title(String activity_Title) {
         notNull(activity_Title, "Activity_Title must not be null");
 
@@ -51,6 +52,11 @@ public class JpaGroupRepository implements GroupRepository {
                 .stream()
                 .map(GroupMapper::toGroup)
                 .toList();
+    }
+
+    @Override
+    public void endGroupsInEvent(String eventName){
+        jpaGroupRepositoryDefault.endGroupsInEvent(eventName);
     }
 
     @Override

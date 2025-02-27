@@ -32,6 +32,12 @@ public class JpaActivityRepository implements ActivityRepository {
     }
 
     @Override
+    public void reverseStatus(List<String> activityTitles){
+
+        jpaActivityRepositoryDefault.toggleActiveStatusBatch(activityTitles);
+    }
+
+    @Override
     public Optional<Activity> findByTitle(String title){
         notNull(title, "Title must not be null");
 

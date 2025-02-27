@@ -10,5 +10,6 @@ public interface GroupRepository {
     public Optional<Group> findById(int id);
     public List<Group> findAll();
     public List<Group> findByActivity_Title(String activity_Title);
+    public void endGroupsInEvent(String eventName);
     public void delete(int id);
 }

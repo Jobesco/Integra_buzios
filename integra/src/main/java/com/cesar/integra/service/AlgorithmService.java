@@ -60,7 +60,7 @@ public class AlgorithmService {
         List<Registration> selectedCandidates = new ArrayList<>();
         int man = 0, woman = 0;
 
-        while(selectedCandidates.size() < group.getActivity().getTickets() && !candidates.isEmpty()) {
+        while(!candidates.isEmpty() && selectedCandidates.size() < group.getActivity().getTickets()) {
             Registration bestCandidate = null;
             double biggestDifference = -1.0;
 

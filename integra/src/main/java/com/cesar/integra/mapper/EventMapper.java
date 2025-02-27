@@ -12,6 +12,7 @@ public class EventMapper {
         JpaEvent jpaEvent = new JpaEvent();
 
         jpaEvent.setName(event.getName());
+        jpaEvent.setActive(event.isActive());
         jpaEvent.setGuideFormStartDate(event.getGuideFormStartDate());
         jpaEvent.setGuideFormEndDate(event.getGuideFormEndDate());
         jpaEvent.setParticipantFormStartDate(event.getParticipantFormStartDate());
@@ -27,6 +28,7 @@ public class EventMapper {
 
         return new Event(
                 jpaEvent.getName(),
+                jpaEvent.isActive(),
                 jpaEvent.getGuideFormStartDate(),
                 jpaEvent.getGuideFormEndDate(),
                 jpaEvent.getParticipantFormStartDate(),

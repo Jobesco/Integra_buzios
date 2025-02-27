@@ -9,5 +9,6 @@ public interface ActivityRepository {
     public Optional<Activity> findByTitle(String title);
     public List<Activity> findAll();
     public List<Activity> findActivitiesByEvent(String eventName);
+    public void reverseStatus(List<String> activityTitles);
     public void delete(String title);
 }

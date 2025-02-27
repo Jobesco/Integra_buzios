@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -35,6 +36,15 @@ public class ActivityController {
     @GetMapping
     public ResponseEntity<List<Activity>> getAllActivities() {
         List<Activity> activities = activityService.findAll();
+        return ResponseEntity.ok(activities);
+    }
+
+    @GetMapping("/titleAndStatus")
+    public ResponseEntity<List<Map<String, Object>>> getNameAndStatus() {
+        List<Map<String, Object>> activities = activityService.findAll().stream()
+                .map(Activity::nameAndStatus)
+                .toList();
+
         return ResponseEntity.ok(activities);
     }
 

@@ -4,6 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.springframework.util.Assert.isTrue;
 import static org.springframework.util.Assert.notNull;
 
@@ -49,5 +52,12 @@ public class Activity implements Serializable {
     public String ToString(){
         return String.format("Title: %s, Description: %s, PwD: %s, Tickets: %d, Place: %s",
                 title, description, isPwdPriority(), tickets, place);
+    }
+
+    public Map<String, Object> nameAndStatus() {
+        Map<String, Object> eventJson = new HashMap<>();
+        eventJson.put("title", this.title);
+        eventJson.put("active", this.active);
+        return eventJson;
     }
 }
