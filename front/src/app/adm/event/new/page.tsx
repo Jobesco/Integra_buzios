@@ -148,6 +148,26 @@ export function DatePickerWithRange({
   )
 }
 
+export function ActivityItem({ title, checked }: {
+  title: string,
+  checked: boolean
+}) {
+
+  return (
+    <div className="flex gap-2 h-6">
+      {checked ? <span>sim</span> : 
+      <Checkbox id="selectAllId" className="p-2 mr-2"/>}
+      <label
+        htmlFor="selectAllId"
+        className="grow leading-none text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+      >
+        {title}
+      </label>
+    </div>
+  )
+
+}
+
 export function Activities() {
 
 
@@ -155,10 +175,10 @@ export function Activities() {
     <div className="grid gap-2 w-[368px]">
       <Label htmlFor="activities" className="text-base">Atividades:</Label>
       <div className="flex items-center justify-between h-10">
-        <Checkbox id="selectAllId" className="p-2 mr-10"/>
+        <Checkbox id="selectAllId" className="p-2 mr-2"/>
         <label
           htmlFor="selectAllId"
-          className="grow leading-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          className="grow leading-none text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         >
           Selecionar todas
         </label>
@@ -169,9 +189,17 @@ export function Activities() {
           <PlusIcon className="text-background" />Adicionar nova
         </Button>
       </div>
-      <div className="rounded-xl border-1 border-collie">
-        test
-      </div>
+      <ScrollArea className="overflow-y-auto max-h-[208px] mt-2">
+        <div className="rounded-lg border-[1px] border-collie grid gap-2 px-4 py-4">
+          <ActivityItem checked={false} title={'igues'} />
+          <ActivityItem checked={false} title={'igues'} />
+          <ActivityItem checked={false} title={'igues'} />
+          <ActivityItem checked={false} title={'igues'} />
+          <ActivityItem checked={false} title={'igues'} />
+          <ActivityItem checked={false} title={'igues'} />
+
+        </div>
+      </ScrollArea>
     </div>
   )
 }
@@ -192,11 +220,14 @@ export default function PageNewEvent() {
       </h1>
 
       <div className="grid min-w-[368px] grid-cols-1 gap-7">
-        prolly form ere
+        {/* // TODO form handler here */}
         <InputWithLabel inputID="title" label="Título:" type="text" placeholder="Ex: IntegraBuzios 2025.1" />
         <DatePickerWithRange />
 
         <Activities />
+
+
+        <Button className="max-w-[176px] ml-auto px-8 py-2 rounded-full bg-secondary700 text-surface">Criar evento</Button>
 
 
 

@@ -27,6 +27,7 @@ const config = {
       secondary900: '#7A3405',
       success: '#66BB0B',
       error: '#EE3A3A',
+      collie: '#CBD5E1'
     },
     container: {
       center: true,
