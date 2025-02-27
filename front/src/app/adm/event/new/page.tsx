@@ -5,10 +5,11 @@ import {useRouter} from "next/navigation"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Toggle } from "@/components/ui/toggle"
+import { Checkbox } from "@/components/ui/checkbox"
 import { addDays, format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { DateRange } from "react-day-picker"
+import { PlusIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
@@ -151,15 +152,21 @@ export function Activities() {
 
 
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2 w-[368px]">
       <Label htmlFor="activities" className="text-base">Atividades:</Label>
-      <div className="block justify-between h-10">
-        <span><Toggle /> Selecionar todas</span>
-        <Button className={cn("hover:bg-secondary300 hover:text-surface w-1/2 rounded-full py-2",
-                  "px-12 bg-primary text-onSurface",
-                )}>
-                Admin
-              </Button>
+      <div className="flex items-center justify-between h-10">
+        <Checkbox id="selectAllId" className="p-2 mr-10"/>
+        <label
+          htmlFor="selectAllId"
+          className="grow leading-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Selecionar todas
+        </label>
+      <Button className={cn("hover:bg-secondary300 hover:text-surface w-1/2 rounded-full py-2",
+        "px-12 bg-primary text-onSurface",
+      )}>
+        <PlusIcon />Adicionar nova
+      </Button>
       </div>
     </div>
   )

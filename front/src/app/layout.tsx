@@ -46,6 +46,8 @@ import {
 } from "@/components/ui/menubar"
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
+import grupo from "@/public/adm/group.png"
+import integra from "@/public/adm/integra.png"
 
 
 const barlow = Barlow({
@@ -95,8 +97,8 @@ export default function RootLayout({
             href="/home"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
-            <Image width="40" height="50" src="/adm/group.png" alt="Buzios" />
-            <Image width="107" height="30" src="/adm/integra.png" alt="Integra" />
+            <Image width="40" height="50" src={grupo} alt="Buzios" />
+            <Image width="107" height="30" src={integra} alt="Integra" />
           </Link>
             
           <Menubar className="rounded-full h-12 text-primary900 
