@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Barlow } from "next/font/google";
 
+
 import { cn } from "@/lib/utils";
 
 import Link from "next/link"
@@ -47,6 +48,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import grupo from "@/public/adm/group.png"
 import integra from "@/public/adm/integra.png"
+import SignupModal from "@/components/SignupModal/SignupModal";
 
 const barlow = Barlow({
   subsets: ["latin"],
@@ -69,6 +71,7 @@ export default function RootLayout({
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const { toast } = useToast()
   const { push } = useRouter()
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
 
   useEffect(() => {
@@ -97,10 +100,16 @@ export default function RootLayout({
 
 
   // Função para abrir o modal
-  const openModal = () => setIsOpen(true);
+  const openModal = () => {
+    setIsOpen(true);
+    setIsSignupOpen(false);
+  }
 
   // Função para fechar o modal
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setIsSignupOpen(false);
+    setIsOpen(false);
+  }
 
   // Função para lidar com o login
   const handleLogin = () => {
@@ -109,9 +118,15 @@ export default function RootLayout({
     closeModal(); // Fecha o modal após o login
   };
 
+  const openSignupModal = () => {
+    setIsOpen(false);
+    setIsSignupOpen(true); // Abre o modal de signup
+  };
+
   function handleClick(admin: boolean) {
     setAdminToggle(admin)
   }
+  
 
   return (
     <html lang="en" className="h-full">
@@ -163,13 +178,16 @@ export default function RootLayout({
               >
                 Entrar na conta
               </Button>
-              <Button
+              <Button onClick={openSignupModal}
                 className="bg-[#FF9F1C] text-white hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300"
               >
                 Crie sua conta
               </Button>
             </>
             )}
+
+            <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
+
 
               <span className="ml-auto" />
               {isAuthenticated && (
@@ -248,7 +266,7 @@ export default function RootLayout({
             <p className="text-sm font-medium text-gray-700 "><strong>E-mail Petro:</strong></p>
             <Input
               type="text"
-              placeholder="Usuário ou e-mail"
+              placeholder="Digite seu e-mai Petrobras"
               className="w-full"
             />
             <p className="text-sm font-medium text-gray-700"><strong>Senha:</strong></p>
@@ -274,12 +292,11 @@ export default function RootLayout({
           {/* Link para Cadastro */}
           <div className="text-center mt-4">
             <span className="text-sm text-gray-600">Não tem uma conta? </span>
-            <Link
-              href="/cadastro" // Altere para a rota de cadastro
-              className="text-sm text-[#0e39f7] hover:underline"
-              onClick={closeModal} // Fecha o modal ao clicar no link
-            ><strong>Crie sua conta</strong>
-            </Link>
+
+            <span onClick={openSignupModal} className="cursor-pointer text-blue-500 hover:underline">
+              <strong>Crie sua conta</strong>
+            </span>
+            
           </div>
         </DialogContent>
       </Dialog>
