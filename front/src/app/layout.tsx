@@ -69,7 +69,7 @@ export default function RootLayout({
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
   const { toast } = useToast()
   const { push } = useRouter()
-  
+
 
   useEffect(() => {
     setUserName(getLocalStorage('name') ?? '')
@@ -94,6 +94,20 @@ export default function RootLayout({
 
     checkAuth();
   }, [])
+
+
+  // Função para abrir o modal
+  const openModal = () => setIsOpen(true);
+
+  // Função para fechar o modal
+  const closeModal = () => setIsOpen(false);
+
+  // Função para lidar com o login
+  const handleLogin = () => {
+    // Adicione aqui a lógica de login
+    console.log('Usuário logado');
+    closeModal(); // Fecha o modal após o login
+  };
 
   function handleClick(admin: boolean) {
     setAdminToggle(admin)
@@ -144,7 +158,7 @@ export default function RootLayout({
             
             {!isAuthenticated && (
               <>
-              <Button
+              <Button onClick={openModal}
                 className="bg-transparent text-white hover:bg-[#FF9F1C] rounded-full px-6 py-2 transition-colors duration-300"
               >
                 Entrar na conta
@@ -220,6 +234,56 @@ export default function RootLayout({
                 </Sheet>
               )}
             </div>
+
+
+            {/* Modal de Login */}
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="sm:max-w-md space-y-4">
+          <DialogHeader>
+            <DialogTitle className="text-4xl font-bold text-center"><strong>Faça seu login</strong></DialogTitle>
+          </DialogHeader>
+
+          {/* Campos do formulário */}
+          <div className="space-y-4 mx-5">
+            <p className="text-sm font-medium text-gray-700 "><strong>E-mail Petro:</strong></p>
+            <Input
+              type="text"
+              placeholder="Usuário ou e-mail"
+              className="w-full"
+            />
+            <p className="text-sm font-medium text-gray-700"><strong>Senha:</strong></p>
+            <Input
+              type="password"
+              placeholder="Senha"
+              className="w-full"
+            />
+          </div>
+
+          {/* Botão de Login */}
+          <Button
+            onClick={handleLogin}
+            className=" !text-white  bg-[#FF9F1C] hover:!bg-[#0e39f7] rounded-full px-6 py-2 transition-colors duration-300"
+
+          >
+            Entrar
+          </Button>
+
+          <p className="text-center font-medium text-gray-50">Esqueci a minha senha</p>
+          <hr></hr>
+
+          {/* Link para Cadastro */}
+          <div className="text-center mt-4">
+            <span className="text-sm text-gray-600">Não tem uma conta? </span>
+            <Link
+              href="/cadastro" // Altere para a rota de cadastro
+              className="text-sm text-[#0e39f7] hover:underline"
+              onClick={closeModal} // Fecha o modal ao clicar no link
+            ><strong>Crie sua conta</strong>
+            </Link>
+          </div>
+        </DialogContent>
+      </Dialog>
+
         </header>}
 
         <main className="h-full">{children}</main>
