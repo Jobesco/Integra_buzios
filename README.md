@@ -10,7 +10,7 @@ Antes de começar, você precisa ter os seguintes itens instalados no seu sistem
 2. **Maven**:
    - Baixe e instale o Apache Maven a partir do [site oficial do Maven](https://maven.apache.org/download.cgi).
 
-##Configuração do banco
+## Configuração do banco
 
 Para configurar o banco MySQL basta alterar o arquivo application.properties na pasta 
 (Integra_buzios\integra\src\main\resources) ajustando as seguintes linhas:
