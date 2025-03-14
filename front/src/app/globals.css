@@ -89,6 +89,11 @@
 .text-white-important {
   color: white !important;
 }
+
+.text-pink-important {
+  color: #F027F3 !important;
+}
+
 /* CSS global */
 
 .header-container {
