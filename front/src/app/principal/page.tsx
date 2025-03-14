@@ -4,9 +4,13 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
 import { Montserrat } from 'next/font/google';
+import { Suspense } from "react";
 import img from "@/public/dash-1.png";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from 'clsx';
+import ShowSubsCard from './subscribes';
+
+
 
 const montserrat = Montserrat({
   weight: ['400', '700', '800'],
@@ -38,20 +42,20 @@ const Dashboard = () => {
   }, []);
 
   const InscricaoCard = ({ title, location, guide, date, status }) => (
-    <Card className="p-4 w-full md:w-1/4">
-      <CardContent>
-        <h3 className="text-lg font-semibold">{title}</h3>
-        <p className="text-sm text-gray-500">📍 {location}</p>
-        <p className="text-sm text-gray-500">👤 {guide}</p>
-        <p className="text-sm text-gray-500">✅ {status}</p>
-        <p className="text-xl font-bold mt-2">{date}</p>
+    <Card className="p-4 w-full md:w-1/4 flex flex-col justify-between">
+      <CardContent className="flex flex-col gap-2">
+        <h3 className="text-base md:text-lg font-semibold line-clamp-2">{title}</h3>
+        <p className="text-xs md:text-sm text-gray-500">📍 {location}</p>
+        <p className="text-xs md:text-sm text-gray-500">👤 {guide}</p>
+        <p className="text-xs md:text-sm text-gray-500">✅ {status}</p>
+        <p className="text-lg md:text-xl font-bold mt-2">{date}</p>
       </CardContent>
     </Card>
   );
 
   return (
-    <div className="px-60 pt-20">
-      <h1 className={`${montserrat.className} text-4xl font-bold mb-8`}>Olá, {user.firstName} {user.lastName}!</h1>
+<div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 pt-20">
+<h1 className={`${montserrat.className} text-4xl font-bold mb-8`}>Olá, {user.firstName} {user.lastName}!</h1>
 
       <Card className="rounded-2xl mb-8 overflow-hidden relative w-full h-[400px]">
         <Image
@@ -70,6 +74,10 @@ const Dashboard = () => {
           </Button>
         </CardContent>
       </Card>
+
+      <h2 className={`${montserrat.className} text-xl sm:text-4xl font-bold mb-2 sm:mb-4 pt-10`}>
+          Minhas inscrições
+          </h2>
 
       <div className="flex mb-6 justify-end">
       <Card className="bg-surface rounded-2xl ">
@@ -99,18 +107,13 @@ const Dashboard = () => {
         
       </div>
 
-      {activeTab === 'inscricoes' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {inscricoes.map((inscricao, index) => (
-            <InscricaoCard
-              key={index}
-              {...inscricao}
-            />
-          ))}
-        </div>
-      )}
+      <section>
+        <Suspense fallback={<p>Carregando inscrições...</p>}>
+          <ShowSubsCard/>
+        </Suspense>
+      </section>
 
-      <footer className="mt-8 text-sm text-gray-500">
+      <footer className="mt-8 mb-8 text-sm text-gray-500">
         <p>FAQ</p>
         <a href="https://www.microsoftdocs.com.br/FAQ-Integra-Búzios" className="text-blue-500 underline">
           www.microsoftdocs.com.br/FAQ-Integra-Búzios
