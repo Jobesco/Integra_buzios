@@ -82,12 +82,9 @@ export default async function Home() {
 
       {/* Outra Seção */}
       <section>
-        <h2 className="text-2xl font-semibold mb-2">Outras Informações</h2>
-        <p className="text-gray-600">
-          Aqui você pode adicionar mais conteúdo ou links úteis.
-        </p>
-        <Link href="/sobre" className="text-blue-500 hover:underline">
-          Saiba mais sobre nós
+        <h2 className="text-2xl font-semibold mb-2">FAQ</h2>
+        <Link href="/wwww.microsoftdocs.com.br/FAQ-Integra-Búzios" className="text-blue-500 hover:underline">
+        wwww.microsoftdocs.com.br/FAQ-Integra-Búzios
         </Link>
       </section>
 

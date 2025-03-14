@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Barlow } from "next/font/google";
 
-
 import { cn } from "@/lib/utils";
 
 import Link from "next/link"
@@ -73,12 +72,10 @@ export default function RootLayout({
   const { push } = useRouter()
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
-
   useEffect(() => {
     setUserName(getLocalStorage('name') ?? '')
     setProfilePic(getLocalStorage('picture') ?? '')
     setEmail(getLocalStorage('email') ?? '')
-    
 
     // Verificar autenticação
     const checkAuth = async () => {
@@ -98,7 +95,6 @@ export default function RootLayout({
     checkAuth();
   }, [])
 
-
   // Função para abrir o modal
   const openModal = () => {
     setIsOpen(true);
@@ -113,29 +109,25 @@ export default function RootLayout({
 
   // Função para lidar com o login
   const handleLogin = () => {
-    // Adicione aqui a lógica de login
     console.log('Usuário logado');
-    closeModal(); // Fecha o modal após o login
+    closeModal();
   };
 
   const openSignupModal = () => {
     setIsOpen(false);
-    setIsSignupOpen(true); // Abre o modal de signup
+    setIsSignupOpen(true);
   };
 
   function handleClick(admin: boolean) {
     setAdminToggle(admin)
   }
-  
-  
 
   return (
     <html lang="en" className="h-full">
-      <body className={
-        cn("bg-background font-sans antialiased overflow-x-hidden h-full",
-          barlow.variable
-        )}>
-
+      <body className={cn(
+        "bg-background font-sans antialiased overflow-x-hidden h-full flex flex-col",
+        barlow.variable
+      )}>
         {pathname !== '/login' && (
           <header className="z-50 w-screen sticky flex h-[112px] items-center justify-between bg-[#0E39F7] py-8">
             {isAuthenticated && (
@@ -257,11 +249,11 @@ export default function RootLayout({
             </div>
           </header>
         )}
-        <main className="h-full">{children}</main>
+
+        <main className="flex-grow">{children}</main>
 
         <Toaster />
-        <footer className="static flex flex-row justify-center 
-        bg-primary900 h-20 py-4 gap-4 font-bold">
+        <footer className="flex-shrink-0 flex flex-row justify-center bg-primary900 h-20 py-4 gap-4 font-bold">
           <Link
             href="/home"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
@@ -269,11 +261,9 @@ export default function RootLayout({
             <Image width="40" height="50" src="/group.png" alt="Buzios" />
           </Link>
 
-          <div className="text-background">© 2025 Integra<br/>
+          <div className="text-background">© 2025 Integra<br />
             Todos os direitos reservados.</div>
-          
         </footer>
-
       </body>
     </html>
   );
