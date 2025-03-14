@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Suspense } from "react";
 import Dialogger from "./dialogger";
 import ExploreCardPage from "./explore-card";
+import HomeCard from "./home-cards"
 import { Montserrat } from 'next/font/google';
 import img from "@/public/banner.png"
 import clsx from 'clsx'; // para mesclar classes
+import ShowComentarioCard, { ComentarioCard } from "./comentario-card";
 
 const montserrat = Montserrat({
   weight: ['400', '700', '800'], // Escolha os pesos que deseja utilizar
@@ -63,9 +65,16 @@ export default async function Home() {
     <div className="container mx-auto p-4">  
       {/* Seção de Cards */}
       <section>
-        <h2 className="text-2xl font-semibold mb-2">Artigos Recentes</h2>
+        <h2 className={clsx(montserrat.className, "text-2xl py-8  font-semibold mb-2")}>Por que participar do Integra?</h2>
         <Suspense fallback={<p>Carregando artigos...</p>}>
-          <ExploreCardPage />
+          <HomeCard />
+        </Suspense>
+      </section>
+
+      <section>
+        <h2 className={clsx(montserrat.className, "text-2xl py-8  font-semibold mb-2")}>Por que participar do Integra?</h2>
+        <Suspense fallback={<p>Carregando artigos...</p>}>
+          <ShowComentarioCard/>
         </Suspense>
       </section>
 
