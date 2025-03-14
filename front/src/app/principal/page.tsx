@@ -18,6 +18,7 @@ const montserrat = Montserrat({
 });
 
 const Dashboard = () => {
+  const [showButton, setShowButton] = useState(false); // Estado inicial
   const [activeTab, setActiveTab] = useState('inscricoes');
   const [inscricoes, setInscricoes] = useState([]);
   const [user, setUser] = useState({ firstName: 'Admin', lastName: 'Silva' });
@@ -81,24 +82,25 @@ const Dashboard = () => {
 
       <div className="flex mb-6 justify-end">
       <Card className="bg-surface rounded-2xl ">
-        <Button
-          onClick={() => handleTabChange('inscricoes')}
-          variant={activeTab === 'inscricoes' ? 'default' : 'outline'}
-          className="bg-primary700 text-white-important hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300"
+      <Button
+          onClick={() => setShowButton(false)}
+          className={clsx(
+            "rounded-full px-6 py-2 transition-colors duration-300",
+            showButton
+              ? "bg-transparent text-primary700 hover:bg-primary700 hover:text-white-important"
+              : "bg-primary700 text-white-important hover:bg-primary600"
+          )}
         >
           Minhas inscrições
         </Button>
+
         <Button
-          onClick={() => handleTabChange('turmas')}
-          variant={activeTab === 'turmas' ? 'default' : 'outline'}
+          onClick={() => setShowButton(true)}
           className={clsx(
-            "bg-transparent", // Remove o fundo
-            "shadow-none", // Remove sombras
-            "hover:bg-transparent", // Remove o fundo ao passar o mouse
-            "hover:border-none", // Remove as bordas ao passar o mouse
-            "p-4", // Remove o padding interno
-            "text-current", // Mantém a cor do texto atual
-            activeTab === 'turmas' ? "font-bold" : "font-normal" // Adiciona negrito ao botão ativo
+            "rounded-full px-6 py-2 transition-colors duration-300",
+            !showButton
+              ? "bg-transparent text-primary700 hover:bg-primary700 hover:text-white-important"
+              : "bg-primary700 text-white-important hover:bg-primary600"
           )}
         >
           Minhas turmas
@@ -109,7 +111,7 @@ const Dashboard = () => {
 
       <section>
         <Suspense fallback={<p>Carregando inscrições...</p>}>
-          <ShowSubsCard/>
+          <ShowSubsCard showButton={showButton} />
         </Suspense>
       </section>
 

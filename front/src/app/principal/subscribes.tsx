@@ -37,6 +37,10 @@ function Keyword({ title, ...props }: {
   )
 }
 
+function handleCall() {
+
+}
+
 export function SubsCard(props: any) {
 
     const searchParams = useSearchParams();
@@ -74,11 +78,33 @@ export function SubsCard(props: any) {
         <p className="text-sm">{props.date.split(' ')[1]}</p>
         <br />
         <div className="flex flex-col">
-            <strong className="text-sm/3">Status da inscrição</strong> {/* Tamanho menor para "Status" */}
-            <div className="flex items-center">
+
+        {props.showButton ? (
+            <Button
+            onClick={handleCall}
+            className="bg-[#FF9F1C] text-white-important hover:!bg-transparent rounded-full 
+                       w-full max-w-[150px] min-w-[100px] h-10 px-2 text-xs 
+                       sm:max-w-[180px] sm:text-sm md:max-w-[200px] md:text-base transition-colors duration-300"
+        >
+            <span className="hidden sm:inline">Chamada</span>
+            <span className="inline sm:hidden">Ligar</span>
+        </Button>
+        
+        
+        
+        
+        
+        
+            ) : (
+            <div> {/* Envolvendo o conteúdo em um único elemento pai */}
+                <strong className="text-sm/3">Status da inscrição</strong> 
+                <div className="flex items-center">
                 <span className="w-2 h-2 bg-[#1eff00] rounded-full mr-2"></span>
                 <p className="text-[12px] ">{props.status}</p>
+                </div>
             </div>
+            )}
+
         </div>
       </div>
     </Card>
@@ -87,7 +113,7 @@ export function SubsCard(props: any) {
     );
   }
 
-export default function ShowSubsCard() {
+export default function ShowSubsCard({ showButton }: { showButton: boolean }) {
 
     const inscricoes = [
         {
@@ -95,70 +121,80 @@ export default function ShowSubsCard() {
           location: "Morro da Urca",
           guide: "João Grilo",
           status: "Confirmado",
-          date: "12 JAN"
+          date: "12 JAN",
+          showButton: showButton
         },
         {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
           {
             title: "Rapel de Santa Tereza",
             location: "Morro da Urca",
             guide: "João Grilo",
             status: "Confirmado",
-            date: "12 JAN"
+            date: "12 JAN",
+            showButton: showButton
           },
         // Adicione mais inscrições aqui...
       ];
@@ -174,6 +210,7 @@ export default function ShowSubsCard() {
       guide={inscricao.guide}
       status={inscricao.status}
       date={inscricao.date}
+      showButton={inscricao.showButton}
     />
   ))}
 </div>
