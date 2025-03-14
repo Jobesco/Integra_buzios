@@ -71,20 +71,32 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <div className="flex mb-6">
+      <div className="flex mb-6 justify-end">
+      <Card className="bg-surface rounded-2xl ">
         <Button
           onClick={() => handleTabChange('inscricoes')}
           variant={activeTab === 'inscricoes' ? 'default' : 'outline'}
-          className="mr-4"
+          className="bg-primary700 text-white-important hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300"
         >
           Minhas inscrições
         </Button>
         <Button
           onClick={() => handleTabChange('turmas')}
           variant={activeTab === 'turmas' ? 'default' : 'outline'}
+          className={clsx(
+            "bg-transparent", // Remove o fundo
+            "shadow-none", // Remove sombras
+            "hover:bg-transparent", // Remove o fundo ao passar o mouse
+            "hover:border-none", // Remove as bordas ao passar o mouse
+            "p-4", // Remove o padding interno
+            "text-current", // Mantém a cor do texto atual
+            activeTab === 'turmas' ? "font-bold" : "font-normal" // Adiciona negrito ao botão ativo
+          )}
         >
           Minhas turmas
         </Button>
+        </Card>
+        
       </div>
 
       {activeTab === 'inscricoes' && (
