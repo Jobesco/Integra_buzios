@@ -24,7 +24,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
 
   const handleNext = () => setStep(step + 1);
   const handleBack = () => setStep(step - 1);
-  
+
   const handleSubmit = async () => {
     const data = { fullName, email, management, phone, gender, disability, password };
     const response = await fetch("http://localhost:8080/auth/register", {
@@ -34,8 +34,9 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
     });
 
     if (response.ok) {
-      onClose();
-      alert("Parabéns pelo cadastro!");
+      setStep(step + 1)
+    }else{
+      alert("Verifique seus dados");
     }
   };
 
@@ -75,6 +76,14 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
             <Input type="password" placeholder="Confirmar senha" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           </>
         );
+      case 5:
+        case 4:
+        return (
+          <>
+            <p><strong>Parabéns!</strong></p>
+            <p>Sua conta foi criada</p>
+          </>
+        );
       default:
         return null;
     }
@@ -86,7 +95,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
         <DialogHeader>
           <DialogTitle>Criar sua conta</DialogTitle>
           <div className="flex justify-center gap-2">
-            {[1, 2, 3, 4].map((item) => (
+            {[1, 2, 3, 4, 5].map((item) => (
               <div
                 key={item}
                 className={`w-4 h-4 rounded-full ${step >= item ? "bg-blue-500" : "bg-gray-300"}`}
@@ -104,6 +113,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
  onClick={handleNext}>Avançar</Button>}
           {step === 4 && <Button className="bg-[#0e39f7] !text-white rounded-full px-6 py-2 transition-colors duration-300"
  onClick={handleSubmit}>Confirmar</Button>}
+          {step === 5 && <Button className="bg-[#0e39f7] !text-white rounded-full px-6 py-2 transition-colors duration-300"
+ onClick={onClose}>Entrar</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

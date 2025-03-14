@@ -85,3 +85,38 @@
     @apply bg-background text-foreground;
   }
 }
+
+.text-white-important {
+  color: white !important;
+}
+/* CSS global */
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 2rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.buttons-container {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .buttons-container {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .logo-container {
+    justify-content: flex-start;
+  }
+}

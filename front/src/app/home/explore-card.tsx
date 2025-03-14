@@ -18,6 +18,26 @@ import { useRouter, useSearchParams } from "next/navigation"
 import SelectedCategoryContext from "@/lib/context"
 import { fetchFromAreas } from "../api/papers"
 
+const mockData = [
+  {
+    id: 1,
+    title: "Introdução ao Next.js",
+    keywords: [{ keyword: { name: "Next.js" } }, { keyword: { name: "React" } }],
+    description: "Um guia básico para começar com Next.js.",
+    authors: [{ collaborator: { name: "João Silva" } }, { collaborator: { name: "Maria Souza" } }],
+    publication_year: "2023-10-01",
+  },
+  {
+    id: 2,
+    title: "TypeScript para Iniciantes",
+    keywords: [{ keyword: { name: "TypeScript" } }, { keyword: { name: "JavaScript" } }],
+    description: "Aprenda os conceitos básicos de TypeScript.",
+    authors: [{ collaborator: { name: "Carlos Oliveira" } }],
+    publication_year: "2023-09-15",
+  },
+  // Adicione mais objetos conforme necessário
+];
+
 function Keyword({ title, ...props }: {
   title: string
 }) {
@@ -88,7 +108,8 @@ export function ExploreCard(props: any) {
 
 export default function ExploreCardPage() {
   // const { selectedCategory } = useContext(SelectedCategoryContext)
-  const [explore, setExplore] = useState([])
+  // const [explore, setExplore] = useState([])
+  const [explore, setExplore] = useState(mockData); // Usando dados mockados
 
   // useEffect(() => {
   //   fetchFromAreas(selectedCategory).then((data) => {

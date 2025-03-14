@@ -19,7 +19,7 @@ const config = {
       primary100: '#CEDBFE',
       primary300: '#6D8DFC',
       primary700: '#0720B1',
-      primary900: '#020F76', // ? admin color
+      primary900: '#020F76', // ? admin colorz
       secondary: '#FF9F1C',
       secondary100: '#FFF3D1',
       secondary300: '#FFD176',
