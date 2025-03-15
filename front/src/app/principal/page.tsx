@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Montserrat } from 'next/font/google';
 import { Suspense } from "react";
 import img from "@/public/dash-1.png";
+import img2 from "@/public/dash-2.png";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from 'clsx';
 import ShowSubsCard from './subscribes';
@@ -27,6 +28,14 @@ const Dashboard = () => {
     setActiveTab(tab);
   };
 
+  const handleClick = (isActive) => {
+    if (isActive) {
+      console.log("O botão está ativo!");
+    } else {
+      console.log("Quero ajudar a melhorar o Integra");
+    }
+  };
+
   useEffect(() => {
     const fetchInscricoes = async () => {
       const data = Array(6).fill({
@@ -42,22 +51,34 @@ const Dashboard = () => {
     fetchInscricoes();
   }, []);
 
-  const InscricaoCard = ({ title, location, guide, date, status }) => (
-    <Card className="p-4 w-full md:w-1/4 flex flex-col justify-between">
-      <CardContent className="flex flex-col gap-2">
-        <h3 className="text-base md:text-lg font-semibold line-clamp-2">{title}</h3>
-        <p className="text-xs md:text-sm text-gray-500">📍 {location}</p>
-        <p className="text-xs md:text-sm text-gray-500">👤 {guide}</p>
-        <p className="text-xs md:text-sm text-gray-500">✅ {status}</p>
-        <p className="text-lg md:text-xl font-bold mt-2">{date}</p>
-      </CardContent>
-    </Card>
-  );
-
   return (
 <div className="px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 pt-20">
 <h1 className={`${montserrat.className} text-4xl font-bold mb-8`}>Olá, {user.firstName} {user.lastName}!</h1>
+      {showButton ? (
 
+        <Card className="rounded-2xl mb-8 overflow-hidden relative w-full h-[400px]">
+        <Image
+          src={img2}
+          alt="Feedback Background"
+          fill
+          className="object-cover"
+
+            
+
+        />
+        <CardContent className="absolute inset-0 z-10 flex flex-col justify-center items-start p-8 text-white bg-black/70">
+          <h2 className={`${montserrat.className} text-xl sm:text-4xl text-primary900 font-bold mb-2 sm:mb-4 ml-[10px] sm:ml-[50px]`}>
+          Chegou a hora <br /> <span className="text-primary-important">de participar <br /> do Integra.</span>
+          </h2>
+          <p className="text-xs text-primary900 sm:text-sm mb-2 sm:mb-4 ml-[10px] sm:ml-[50px]">Formulário aberto para participar, clique abaixo e se inscreva em uma atividade.</p>
+          <Button onClick={() => handleClick(showButton)}
+          className="bg-[#0E39F7] text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm">
+            Eu quero participar!
+          </Button>
+        </CardContent>
+        </Card>
+
+      ):(
       <Card className="rounded-2xl mb-8 overflow-hidden relative w-full h-[400px]">
         <Image
           src={img}
@@ -70,11 +91,13 @@ const Dashboard = () => {
             Vamos melhorar <br /> <span className="text-pink-important">a experiência do <br /> nosso Integra?</span>
           </h2>
           <p className="text-xs text-white-important sm:text-sm mb-2 sm:mb-4 ml-[10px] sm:ml-[50px]">Nos ajude preenchendo o formulário abaixo, clique e nos ajude com seu feedback!</p>
-          <Button className="bg-[#F027F3] text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm">
+          <Button onClick={() => handleClick(showButton)}
+           className="bg-[#F027F3] text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm">
             Quero ajudar a melhorar o Integra
           </Button>
         </CardContent>
       </Card>
+      )}
 
       <h2 className={`${montserrat.className} text-xl sm:text-4xl font-bold mb-2 sm:mb-4 pt-10`}>
           Minhas inscrições

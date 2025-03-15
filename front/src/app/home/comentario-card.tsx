@@ -61,15 +61,15 @@ export function ComentarioCard(props: any) {
         <Card
   className="bg-[#F0F0F0] min-w-[230px] w-full rounded-xl flex flex-col items-start text-left p-6 cursor-pointer"
 >
-  <div className="w-8 h-8 mb-4">
-    <Image
-      src={img}
-      alt="Imagem do card"
-      width={32}
-      height={32}
-      className="w-full h-full object-cover"
-    />
-  </div>
+<div className="w-12 h-12 mb-4"> {/* Ajuste o tamanho conforme necessário */}
+  <Image
+    src={img}
+    alt="Imagem do card"
+    width={48}
+    height={48}
+    className="w-full h-full object-scale-down"
+  />
+</div>
 
   <div className="flex flex-col gap-2 text-grey3 text-md">
     <p className="text-black bg-homeBg px-3 py-2 rounded-lg border-selectedBorderOpaque hover:border-selectedBorder whitespace-pre-line break-words">
