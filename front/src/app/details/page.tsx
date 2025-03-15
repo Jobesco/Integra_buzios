@@ -1,11 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { AlarmClock, MapPin, User } from "lucide-react";
-import { Montserrat } from 'next/font/google';
 import ShowDetailsComponent from "./event";
-
-
+import { Montserrat } from 'next/font/google';
 
 const montserrat = Montserrat({
     weight: ['400', '700', '800'],
@@ -14,6 +13,7 @@ const montserrat = Montserrat({
 
   
 export default function EventDetails() {
+
   return (
     <div className="max-w-5xl mx-auto p-6">
       {/* Link de Voltar */}

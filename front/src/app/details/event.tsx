@@ -27,6 +27,7 @@ import SelectedCategoryContext from "@/lib/context"
 import { fetchFromAreas } from "../api/papers"
 import Image from "next/image";
 import img from "@/public/aspas.svg"
+import ModalCancel from './cancelar';
 
 const montserrat = Montserrat({
     weight: ['400', '700', '800'], // Escolha os pesos que deseja utilizar
@@ -46,7 +47,8 @@ function Keyword({ title, ...props }: {
 }
 
 export function DetailsComponent(props: any) {
-  
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     function handleClick() {
 
     }
@@ -110,10 +112,25 @@ export function DetailsComponent(props: any) {
             onClick={()=> handleClick()}>
               Confirmar Inscrição
             </Button>
-            <Button onClick={()=> handleClick()} variant="outline"  className="border-error text-error px-6 py-3 rounded-full hover:bg-red-50">
+            <Button onClick={() => setIsModalOpen(true)} variant="outline"  className="border-error text-error px-6 py-3 rounded-full hover:bg-red-50">
               ✖ Cancelar Inscrição
             </Button>
           </div>
+
+          <div className="p-10">        
+            <ModalCancel
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title="Vamos sentir sua falta..."
+                description="Você realmente deseja cancelar sua inscrição nesta atividade?"
+                confirmText="Cancelar inscrição"
+                cancelText="Ainda quero participar"
+                onConfirm={() => {
+                alert("Ação confirmada!");
+                setIsModalOpen(false);
+                }}
+            />
+        </div>
         </div>
       </div>
 </>
