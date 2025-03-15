@@ -48,10 +48,15 @@ function Keyword({ title, ...props }: {
 
 export function DetailsComponent(props: any) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [inscricaoConfirmada, setInscricaoConfirmada] = useState(false);
 
     function handleClick() {
 
     }
+
+    const handleConfirm = () => {
+        setInscricaoConfirmada(true);
+      };
 
     function verDetalhes() {
 
@@ -106,16 +111,33 @@ export function DetailsComponent(props: any) {
             </div>
           </div>
 
-          {/* Botões de Inscrição - Empilhados */}
           <div className="mt-6 flex flex-col gap-4">
-            <Button className="bg-success !text-white hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300"
-            onClick={()=> handleClick()}>
-              Confirmar Inscrição
-            </Button>
-            <Button onClick={() => setIsModalOpen(true)} variant="outline"  className="border-error text-error px-6 py-3 rounded-full hover:bg-red-50">
-              ✖ Cancelar Inscrição
-            </Button>
-          </div>
+            {!inscricaoConfirmada ? (
+                <>
+                    <Button
+                    className="bg-success !text-white hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300"
+                    onClick={handleConfirm}
+                    >
+                    Confirmar Inscrição
+                    </Button>
+                    <Button
+                    onClick={() => setIsModalOpen(true)}
+                    variant="outline"
+                    className="border-error text-error px-6 py-3 rounded-full hover:bg-red-50"
+                    >
+                    ✖ Cancelar Inscrição
+                    </Button>
+                </>
+                ) : (
+                <Button
+                variant="outline"
+                    className="border-success text-success px-6 py-3 rounded-full hover:bg-red-50"
+                disabled
+                >
+                    Inscrição Confirmada
+                </Button>
+                )}
+            </div>
 
           <div className="p-10">        
             <ModalCancel
