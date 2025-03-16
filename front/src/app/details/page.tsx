@@ -5,6 +5,12 @@ import { Button } from "@/components/ui/button";
 import { AlarmClock, MapPin, User } from "lucide-react";
 import ShowDetailsComponent from "./event";
 import VolunteerGuideForm from "./voluntario";
+import ic_admin from "@/public/admin.svg"
+import ic_atv from "@/public/atividades.svg"
+import ic_contas from "@/public/contas.svg"
+import ic_dados from "@/public/dados.svg"
+import ic_editFAQ from "@/public/editar_faqs.svg"
+import ic_edit from "@/public/editar.svg"
 
 import { Montserrat } from 'next/font/google';
 import ParticipanteGuideForm from "./participante";
