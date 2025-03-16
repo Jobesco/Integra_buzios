@@ -3,6 +3,7 @@
 import { Montserrat } from 'next/font/google';
 import Dashboard from './dashboard';
 import CreateEvent from './novoEvento';
+import ManageEvent from './genreciarEvento';
 
 
 const montserrat = Montserrat({
@@ -16,7 +17,7 @@ export default function Main() {
     const showDash = false
   return (
     <>
-    {showDash ? (
+    {/* {showDash ? (
         <Dashboard/>
     ):(
         <div className={`${montserrat.className} p-8 max-w-2xl mx-auto`}>
@@ -25,7 +26,9 @@ export default function Main() {
       </a>
             <CreateEvent/>
             </div>
-    )}
+    )} */}
+
+        <ManageEvent/>
 
     </>
   );
