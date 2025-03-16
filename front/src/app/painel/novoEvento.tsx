@@ -1,5 +1,5 @@
+import { useState, useEffect } from "react";
 import { Montserrat } from "next/font/google";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";import { Checkbox } from "@/components/ui/checkbox";
@@ -7,29 +7,44 @@ import { Plus, Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import ptBR from "date-fns/locale/pt-BR";
+import Modal from "./addAtividade";
 
 const montserrat = Montserrat({
   weight: ["400", "700", "800"],
   subsets: ["latin"],
 });
 
-const activitiesList = [
-  "Escalada",
-  "Tour histórico - Centro",
-  "Surf",
-  "Tour histórico - África",
-  "Canoa havaiana",
-];
+const activitiesList_ = [
+    { title: "Escalada", description: "Subida em montanhas com equipamentos" },
+    { title: "Tour histórico - Centro", description: "Visita a pontos históricos" },
+    { title: "Surf", description: "Aulas e prática de surf" },
+    { title: "Tour histórico - África", description: "História e cultura africana" },
+    { title: "Canoa havaiana", description: "Remada em grupo no mar" },
+  ];
+
 
 export default function CreateEvent() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [title, setTitle] = useState("");
   const [selectedActivities, setSelectedActivities] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
   const [error, setError] = useState("");
+  const [activitiesList, setActivitiesList] = useState([]);
 
 
+  useEffect(() => {
+   
+        setActivitiesList(activitiesList_); // Atualiza a lista com os dados da API
+
+    
+  }, []);
+
+  // Função para lidar com o sucesso ao adicionar uma atividade
+  const handleSuccess = (newActivity) => {
+    setActivitiesList((prev) => [...prev, newActivity]);
+  };
 
   const toggleActivity = (activity: string) => {
     setSelectedActivities((prev) =>
@@ -147,21 +162,22 @@ export default function CreateEvent() {
         <div className="flex items-center gap-4">
           <Checkbox checked={selectAll} onCheckedChange={toggleSelectAll} />
           <span>Selecionar todas</span>
-          <Button className="bg-[#0E39F7] !text-white hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300 flex items-center gap-2">
+          <Button onClick={() => setIsModalOpen(true)} 
+          className="bg-[#0E39F7] !text-white hover:!bg-transparent rounded-full px-6 py-2 transition-colors duration-300 flex items-center gap-2">
             <Plus size={16} /> Adicionar nova
           </Button>
         </div>
 
         <div className="border rounded-lg p-4 mt-4 max-h-40 overflow-y-auto">
-          {activitiesList.map((activity) => (
-            <div key={activity} className="flex items-center gap-3 mb-2">
-              <Checkbox
-                checked={selectedActivities.includes(activity)}
-                onCheckedChange={() => toggleActivity(activity)}
-              />
-              <span>{activity}</span>
+        {activitiesList.map((activity, index) => (
+            <div key={index} className="flex items-center gap-3 mb-2">
+                <Checkbox
+                checked={selectedActivities.includes(activity.title)}
+                onCheckedChange={() => toggleActivity(activity.title)}
+                />
+                <span>{activity.title}</span> {/* Exibe título e local */}
             </div>
-          ))}
+            ))}
         </div>
       </div>
 
@@ -177,7 +193,18 @@ export default function CreateEvent() {
           >
           Criar evento
         </Button>
+
+        {/* Modal (só aparece se isModalOpen for true) */}
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onSuccess={handleSuccess} 
+      />
+      
       </div>
+
+     
+
     </>
   );
 }
