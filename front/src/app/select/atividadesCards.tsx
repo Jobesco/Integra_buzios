@@ -9,10 +9,13 @@ import ic_ok from "@/public/ok.svg"
 import ic_trash from "@/public/trash.svg"
 import ic_trash_negative from "@/public/trash_negative.svg"
 import ic_edit_evento from "@/public/edit_evento.svg"
+import AddMemberModal from "./addMembro";
 
 export default function AtividadesCard(props:any) {
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const [eventData, setEventData] = useState({
+    id: props.id,
     title: props.title,
     subtitle: props.subtitle,
     participants: props.participants,
@@ -39,7 +42,8 @@ export default function AtividadesCard(props:any) {
     switch (eventData.status) {
       case "Grupo aprovado":
         return (
-          <Button variant="outline" 
+          <Button disabled
+          variant="outline" 
           className="rounded-full bg-white border-2 border-success text-success">
             <Check className="h-4 w-4" />
           </Button>
@@ -57,7 +61,9 @@ export default function AtividadesCard(props:any) {
   
       case "Inscrições insuficientes":
         return (
-          <Button variant="outline" 
+          <Button 
+          disabled
+          variant="outline" 
           className="rounded-full bg-white border-2 border-error text-error">
             Insuficiente
           </Button>
@@ -80,6 +86,7 @@ export default function AtividadesCard(props:any) {
     console.log("Evento atualizado:", updatedEvent);
     setEventData(updatedEvent); // Atualiza o estado com os novos valores
   };
+  
 
   return (
     <Card className="p-4 border rounded-lg w-full max-w-md">
@@ -107,6 +114,7 @@ export default function AtividadesCard(props:any) {
         </span>
         <div className="flex gap-2">
           <Button 
+            onClick={()=>(setModalOpen(true))}
             className="bg-primary900 text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm"
           variant="outline">
             <UserPlus className="h-4 w-4" />
@@ -116,6 +124,13 @@ export default function AtividadesCard(props:any) {
 
         </div>
       </div>
+      
+      <AddMemberModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        eventData={eventData}
+        setEventData={setEventData}
+      />
     </Card>
   );
 }

@@ -5,8 +5,9 @@ import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { Montserrat } from 'next/font/google';
 import AtividadesCard from "./atividadesCards";
+import AddMemberModal from "./addMembro";
+import { Montserrat } from 'next/font/google';
 
 
 const montserrat = Montserrat({
@@ -27,6 +28,7 @@ export default function SelectedUsersPage() {
 
   const [atividades, setAtividades] = useState([
     {
+        id:1,
       title: "Escalada #01",
       subtitle: "15/15 vagas preenchidas",
       participants: [
@@ -35,10 +37,11 @@ export default function SelectedUsersPage() {
         { name: "Usuário Número Dois Santos", highlighted: false },
         { name: "Usuário Três Silveira Lima do Rêgo", highlighted: false },
       ],
-      status: "Enviar para seleção",
+      status: "Grupo aprovado",
       iconType: "selecionados",
     },
     {
+        id:2,
       title: "Escalada #02",
       subtitle: "10/15 vagas preenchidas",
       participants: [
@@ -47,9 +50,10 @@ export default function SelectedUsersPage() {
         { name: "Ana Souza", highlighted: false },
       ],
       status: "Inscrições insuficientes",
-      iconType: "voluntarios",
+      iconType: "selecionados",
     },
     {
+        id:3,
         title: "Escalada #02",
         subtitle: "10/15 vagas preenchidas",
         participants: [
@@ -58,9 +62,10 @@ export default function SelectedUsersPage() {
           { name: "Ana Souza", highlighted: false },
         ],
         status: "Aguardando aprovação",
-        iconType: "participantes",
+        iconType: "selecionados",
       },
       {
+        id:4,
         title: "Escalada #02",
         subtitle: "10/15 vagas preenchidas",
         participants: [
@@ -69,10 +74,13 @@ export default function SelectedUsersPage() {
           { name: "Ana Souza", highlighted: false },
         ],
         status: "Aguardando aprovação",
-        iconType: "atividades",
+        iconType: "selecionados",
       },
     // Adicione mais objetos conforme necessário
   ]);
+
+  const [members, setMembers] = useState([]);
+
 
   return (
     <div className={`${montserrat.className} px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 pt-20`}>
@@ -107,11 +115,13 @@ export default function SelectedUsersPage() {
         </div>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 p-4">
-      {atividades.map((atividade, index) => (
-        <AtividadesCard key={index} {...atividade} />
-      ))}
+    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 p-4">
+        {atividades.map((atividade, index) => (
+            <AtividadesCard key={index} {...atividade} />
+        ))}
     </div>
+
+    
       
       
     </div>
