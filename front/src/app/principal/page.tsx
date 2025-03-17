@@ -3,14 +3,13 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
-import { Montserrat } from 'next/font/google';
 import { Suspense } from "react";
 import img from "@/public/dash-1.png";
 import img2 from "@/public/dash-2.png";
 import { Card, CardContent } from "@/components/ui/card";
 import clsx from 'clsx';
 import ShowSubsCard from './subscribes';
-
+import { Montserrat } from 'next/font/google';
 
 
 const montserrat = Montserrat({
@@ -62,10 +61,8 @@ const Dashboard = () => {
           alt="Feedback Background"
           fill
           className="object-cover"
-
-            
-
         />
+        
         <CardContent className="absolute inset-0 z-10 flex flex-col justify-center items-start p-8 text-white bg-black/70">
           <h2 className={`${montserrat.className} text-xl sm:text-4xl text-primary900 font-bold mb-2 sm:mb-4 ml-[10px] sm:ml-[50px]`}>
           Chegou a hora <br /> <span className="text-primary-important">de participar <br /> do Integra.</span>
@@ -92,7 +89,8 @@ const Dashboard = () => {
           </h2>
           <p className="text-xs text-white-important sm:text-sm mb-2 sm:mb-4 ml-[10px] sm:ml-[50px]">Nos ajude preenchendo o formulário abaixo, clique e nos ajude com seu feedback!</p>
           <Button onClick={() => handleClick(showButton)}
-           className="bg-[#F027F3] text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm">
+           className="bg-[#F027F3] text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm"
+           >
             Quero ajudar a melhorar o Integra
           </Button>
         </CardContent>

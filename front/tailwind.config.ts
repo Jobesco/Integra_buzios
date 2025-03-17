@@ -16,6 +16,7 @@ const config = {
       background: '#FFFFFF',
       surface: '#F0F0F0',
       primary: '#0E39F7',
+      teste: '#0E39F7',
       primary100: '#CEDBFE',
       primary300: '#6D8DFC',
       primary700: '#0720B1',
