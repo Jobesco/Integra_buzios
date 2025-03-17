@@ -4,6 +4,8 @@ import { Montserrat } from 'next/font/google';
 import Dashboard from './dashboard';
 import CreateEvent from './novoEvento';
 import ManageEvent from './genreciarEvento';
+import { parse, isValid , format} from "date-fns";
+
 
 
 const montserrat = Montserrat({
@@ -28,7 +30,12 @@ export default function Main() {
             </div>
     )} */}
 
-        <ManageEvent/>
+        <ManageEvent
+            title="IntegraBuzios 2025.2"
+            startDate= "12-03-2025"
+            endDate= "12-08-2025"
+            ended={true}
+        />
 
     </>
   );

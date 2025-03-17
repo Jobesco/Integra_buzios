@@ -15,6 +15,7 @@ const config = {
       onSurface: '#000000',
       background: '#FFFFFF',
       surface: '#F0F0F0',
+      primary: '#0E39F7',
       primary100: '#CEDBFE',
       primary300: '#6D8DFC',
       primary700: '#0720B1',
@@ -27,7 +28,7 @@ const config = {
       success: '#66BB0B',
       error: '#EE3A3A',
       collie: '#CBD5E1',
-      primary: '#0E39F7',
+      
     },
     container: {
       center: true,
