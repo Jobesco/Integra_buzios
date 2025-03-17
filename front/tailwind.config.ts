@@ -29,6 +29,7 @@ const config = {
       success: '#66BB0B',
       error: '#EE3A3A',
       collie: '#CBD5E1',
+      cinza:'#808080',
       
     },
     container: {

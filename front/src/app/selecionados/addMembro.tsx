@@ -16,6 +16,7 @@ export default function AddMemberModal({ isOpen, onClose, eventData, setEventDat
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
+  
   const handleAddMember = async () => {
     if (!email.trim()) return;
 

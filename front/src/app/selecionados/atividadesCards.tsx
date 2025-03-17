@@ -38,6 +38,23 @@ export default function AtividadesCard(props:any) {
     }
   };
 
+  const renderStatusText = () => {
+    switch (eventData.status) {
+      case "Grupo aprovado":
+        return <span className="text-success font-bold">✔ Grupo aprovado</span>;
+  
+      case "Aguardando aprovação":
+        return <span className="text-[#FF9F1C] font-bold">Aguardando aprovação</span>;
+  
+      case "Inscrições insuficientes":
+        return <span className="text-error font-bold">✖ Inscrições insuficientes</span>;
+  
+      default:
+        return null; // Caso não tenha status correspondente, não exibe nada
+    }
+  };
+  
+
   const renderButtons = () => {
     switch (eventData.status) {
       case "Grupo aprovado":
@@ -110,17 +127,20 @@ export default function AtividadesCard(props:any) {
       <div className="mt-4 flex justify-between items-center">
         <span className="text-green-600 flex items-center gap-2">
           <span className="w-2 h-2 bg-green-600 rounded-full"></span>
-          {eventData.status}
+          {renderStatusText()}
         </span>
         <div className="flex gap-2">
-          <Button 
+          
+          {eventData.iconType == "selecionados" && (<Button 
             onClick={()=>(setModalOpen(true))}
             className="bg-primary900 text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm"
           variant="outline">
             <UserPlus className="h-4 w-4" />
-          </Button>
+          </Button>)}
 
-          {renderButtons()}
+          {eventData.iconType == "selecionados" || eventData.iconType == "participantes" && (
+            <>{renderButtons()}</>
+          )}
 
         </div>
       </div>
