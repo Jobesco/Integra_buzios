@@ -3,6 +3,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
+import { Montserrat } from 'next/font/google';
+
+
+const montserrat = Montserrat({
+  weight: ['400', '700', '800'],
+  subsets: ['latin'],
+});
 
 export default function AddMemberModal({ isOpen, onClose, eventData, setEventData }) {
   const [role, setRole] = useState("voluntario");
@@ -51,9 +58,9 @@ export default function AddMemberModal({ isOpen, onClose, eventData, setEventDat
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md p-6 rounded-lg">
+      <DialogContent className={`${montserrat.className}  max-w-md p-6 rounded-lg`}>
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">Adicionar membro</DialogTitle>
+          <DialogTitle className="text-4xl font-bold">Adicionar membro</DialogTitle>
         </DialogHeader>
 
         <div className="mt-4">
@@ -97,7 +104,7 @@ export default function AddMemberModal({ isOpen, onClose, eventData, setEventDat
 
         <Button
           onClick={handleAddMember}
-          className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md flex items-center justify-center"
+          className="rounded-full bg-[#0E39F7] text-white-important"
           disabled={loading}
         >
           {loading ? "Adicionando..." : <><Plus className="mr-2 h-4 w-4" /> Adicionar membro</>}
