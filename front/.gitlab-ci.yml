@@ -1,0 +1,35 @@
+
+stages:
+    - build
+    - deploy
+
+default:
+    image: docker:latest
+    before_script:
+        - echo 'Logging into Docker registry'
+        - echo $REGISTRY_PASSWORD | docker login $REGISTRY_URL -u $REGISTRY_USERNAME --password-stdin
+        - echo 'Logged in!'
+
+build:
+    stage: build
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_REF_NAME == "main"'
+          when: always
+        - when: never
+    script:
+        - echo 'Building new image from actual commit'
+        - docker build -f Dockerfile.stg -t hub-front-stg .
+        - docker tag hub-front-stg $REGISTRY_URL/hub-front-stg:$CI_COMMIT_SHORT_SHA
+        - docker tag hub-front-stg $REGISTRY_URL/hub-front-stg
+
+deploy:
+    stage: deploy
+    needs: [build]
+    rules:
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main" || $CI_COMMIT_REF_NAME == "main"'
+          when: always
+        - when: never
+    script:
+        - docker push $REGISTRY_URL/hub-front-stg
+        - docker push $REGISTRY_URL/hub-front-stg:$CI_COMMIT_SHORT_SHA
+        - echo ">>>>>>>>> Successfully deployed!! <<<<<<<<<"
