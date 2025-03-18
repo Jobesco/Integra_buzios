@@ -13,7 +13,7 @@ import AddMemberModal from "./addMembro";
 
 export default function AtividadesCard(props:any) {
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const checkExists = props.check !== undefined; // Verifica se props.check existe
   const [eventData, setEventData] = useState({
     id: props.id,
     title: props.title,
@@ -21,6 +21,7 @@ export default function AtividadesCard(props:any) {
     participants: props.participants,
     status: props.status,
     iconType: props.iconType,
+    check: checkExists ? props.check : false, // Se props.check existe, usa ele; senão, usa false
   });
 
   const renderIcon = (iconType) => {
@@ -107,7 +108,25 @@ export default function AtividadesCard(props:any) {
 
   return (
     <Card className="p-4 border rounded-lg w-full max-w-md">
-      <h3 className="text-lg font-bold text-blue-900">{eventData.title}</h3>
+      <div className="flex items-center justify-between w-full">
+        <h3 className="text-lg font-bold text-blue-900">{eventData.title}</h3>
+        {checkExists && (
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={eventData.check}
+            onChange={() => 
+              setEventData((prevData) => ({
+                ...prevData,
+                check: !prevData.check, // Inverte o valor de check
+              }))
+            }
+            className="w-5 h-5 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500"
+          />
+          <span className="text-gray-700 font-medium">Sem grupo</span>
+        </label>)}
+      </div>
+
       <p className="text-sm text-gray-500">{eventData.subtitle}</p>
       <ScrollArea className="mt-4 max-h-40 overflow-y-auto border rounded-md">
         {eventData.participants.map((participant, index) => (
