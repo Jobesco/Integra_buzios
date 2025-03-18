@@ -1,0 +1,41 @@
+services:
+  front:
+    image: front:latest
+    restart: on-failure
+    ports:
+      - 3015:3015 # TODO fix this
+    networks:
+      - local
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  integra:
+    image: integra:latest
+    restart: on-failure
+    ports:
+      - 3015:3015 # TODO fix this
+    networks:
+      - local
+    build:
+      context: ./integra
+      dockerfile: Dockerfile
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  db:
+    image: mysql:9.2.0
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=34313407A
+      - MYSQL_DATABASE=integrabuzios
+    networks:
+      - local
+
+networks:
+  local:
+    name: integra_buzios
