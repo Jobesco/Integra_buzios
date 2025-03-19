@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { Montserrat } from 'next/font/google';
 import AtividadesCard from "../selecionados/atividadesCards";
+import ConfirmationModal from "./modalEnviado";
+import { Montserrat } from 'next/font/google';
 
 
 const montserrat = Montserrat({
@@ -70,6 +71,7 @@ export default function VoluntaiosUsersPage() {
       status: "Enviar para seleção",
       iconType: "participantes",
       check:false,
+      emEspera: "Em espera ",
     },
     {
         id:2,
@@ -83,6 +85,7 @@ export default function VoluntaiosUsersPage() {
       status: "Enviar para seleção",
       iconType: "participantes",
       check:false,
+      emEspera: "Em espera ",
     },
     {
         id:3,
@@ -96,6 +99,7 @@ export default function VoluntaiosUsersPage() {
         status: "Enviar para seleção",
         iconType: "participantes",
         check:false,
+        emEspera: "Em espera ",
       },
       {
         id:4,
@@ -109,12 +113,12 @@ export default function VoluntaiosUsersPage() {
         status: "Enviar para seleção",
         iconType: "participantes",
         check:false,
+        emEspera: "Em espera ",
       },
     // Adicione mais objetos conforme necessário
   ]);
 
   const [members, setMembers] = useState([]);
-
 
   return (
     <div className={`${montserrat.className} px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 pt-20`}>

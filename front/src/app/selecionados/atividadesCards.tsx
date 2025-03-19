@@ -10,6 +10,7 @@ import ic_trash from "@/public/trash.svg"
 import ic_trash_negative from "@/public/trash_negative.svg"
 import ic_edit_evento from "@/public/edit_evento.svg"
 import AddMemberModal from "./addMembro";
+import ConfirmationModal from "../participantes/modalEnviado";
 
 export default function AtividadesCard(props:any) {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,7 +23,10 @@ export default function AtividadesCard(props:any) {
     status: props.status,
     iconType: props.iconType,
     check: checkExists ? props.check : false, // Se props.check existe, usa ele; senão, usa false
+    ...(props.emEspera?.trim() && { emEspera: props.emEspera }) // Adiciona somente se não for vazio
   });
+
+  const [modalConfirm, setModalConfirm] = useState(false);
 
   const renderIcon = (iconType) => {
     switch (props.iconType) {
@@ -90,6 +94,7 @@ export default function AtividadesCard(props:any) {
       case "Enviar para seleção":
         return (
           <Button variant="outline" 
+          onClick={() => setModalConfirm(true)}
           className="rounded-full bg-[#0E39F7] text-white-important">
             Enviar para seleção
           </Button>
@@ -104,7 +109,6 @@ export default function AtividadesCard(props:any) {
     console.log("Evento atualizado:", updatedEvent);
     setEventData(updatedEvent); // Atualiza o estado com os novos valores
   };
-  
 
   return (
     <Card className="p-4 border rounded-lg w-full max-w-md">
@@ -123,7 +127,7 @@ export default function AtividadesCard(props:any) {
             }
             className="w-5 h-5 border-gray-400 rounded-md focus:ring-2 focus:ring-blue-500"
           />
-          <span className="text-gray-700 font-medium">Sem grupo</span>
+          <span className="text-gray-700 font-medium">{eventData.emEspera}</span>
         </label>)}
       </div>
 
@@ -170,6 +174,12 @@ export default function AtividadesCard(props:any) {
         eventData={eventData}
         setEventData={setEventData}
       />
+
+      <ConfirmationModal
+        isOpen={modalConfirm}
+        onClose={() => setModalConfirm(false)}
+       />
+        
     </Card>
   );
 }
