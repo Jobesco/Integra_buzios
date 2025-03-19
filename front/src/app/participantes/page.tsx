@@ -7,7 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import AtividadesCard from "../selecionados/atividadesCards";
-import ConfirmationModal from "./modalEnviado";
 import { Montserrat } from 'next/font/google';
 
 

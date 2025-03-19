@@ -11,9 +11,11 @@ import ic_trash_negative from "@/public/trash_negative.svg"
 import ic_edit_evento from "@/public/edit_evento.svg"
 import AddMemberModal from "./addMembro";
 import ConfirmationModal from "../participantes/modalEnviado";
+import ExcluirModal from "../participantes/excluirInscricao";
 
 export default function AtividadesCard(props:any) {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [nameToDelete, setNameToDelete] = useState("");
   const checkExists = props.check !== undefined; // Verifica se props.check existe
   const [eventData, setEventData] = useState({
     id: props.id,
@@ -26,16 +28,28 @@ export default function AtividadesCard(props:any) {
     ...(props.emEspera?.trim() && { emEspera: props.emEspera }) // Adiciona somente se não for vazio
   });
 
+  const handleRemoveParticipant = (participantName) => {
+    setEventData((prevData) => ({
+      ...prevData,
+      participants: prevData.participants.filter(p => p.name !== participantName)
+    }));
+  };
+  
   const [modalConfirm, setModalConfirm] = useState(false);
+  const [modalExcluir, setModalExcluir] = useState(false);
 
-  const renderIcon = (iconType) => {
-    switch (props.iconType) {
+  const renderIcon = (iconType, name) => {
+    switch (iconType) {
       case "selecionados":
         return <Image src={ic_trash} alt="Excluir" width={28} height={28} />;
       case "voluntarios":
         return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image src={ic_ok} alt="Excluir" width={28} height={28} /></>;
       case "participantes":
-        return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image src={ic_trash} alt="Excluir" width={28} height={28} /></>;
+        return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image 
+          onClick={() => {
+            setNameToDelete(name);
+            setModalExcluir(true);
+          }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       case "atividades":
         return <><Image className="mr-2" src={ic_edit_evento} alt="Editar" width={28} height={28} /><Image src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       default:
@@ -141,7 +155,7 @@ export default function AtividadesCard(props:any) {
             } rounded-md mt-1 mx-2`}
           >
             <span>{participant.name}</span>
-            <Button variant="ghost" size="icon">{renderIcon(eventData.iconType)}</Button>
+            <Button variant="ghost" size="icon">{renderIcon(eventData.iconType, participant.name)}</Button>
 
           </div>
         ))}
@@ -179,7 +193,15 @@ export default function AtividadesCard(props:any) {
         isOpen={modalConfirm}
         onClose={() => setModalConfirm(false)}
        />
-        
+      
+      <ExcluirModal
+        name={nameToDelete}
+        isOpen={modalExcluir}
+        onClose={() => setModalExcluir(false)}
+        onDelete={handleRemoveParticipant} // Nova função passada para o modal
+      />
+
+
     </Card>
   );
 }
