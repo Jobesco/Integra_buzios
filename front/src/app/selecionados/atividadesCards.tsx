@@ -10,8 +10,9 @@ import ic_trash from "@/public/trash.svg"
 import ic_trash_negative from "@/public/trash_negative.svg"
 import ic_edit_evento from "@/public/edit_evento.svg"
 import AddMemberModal from "./addMembro";
-import ConfirmationModal from "../participantes/modalEnviado";
-import ExcluirModal from "../participantes/excluirInscricao";
+import ConfirmationModal from "./modalEnviado";
+import ExcluirModal from "./excluirInscricao";
+import Modal from "../painel/addAtividade";
 
 export default function AtividadesCard(props:any) {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -28,6 +29,15 @@ export default function AtividadesCard(props:any) {
     ...(props.emEspera?.trim() && { emEspera: props.emEspera }) // Adiciona somente se não for vazio
   });
 
+  const handleAddParticipant = (newParticipant) => {
+    console.log(newParticipant.title)
+    setEventData((prevData) => ({
+      ...prevData,
+      participants: [...prevData.participants, { name: newParticipant.title, highlighted: false }],
+    }));
+  };
+  
+
   const handleRemoveParticipant = (participantName) => {
     setEventData((prevData) => ({
       ...prevData,
@@ -36,6 +46,7 @@ export default function AtividadesCard(props:any) {
   };
   
   const [modalConfirm, setModalConfirm] = useState(false);
+  const [addAtividade, setAddAtividade] = useState(false);
   const [modalExcluir, setModalExcluir] = useState(false);
 
   const renderIcon = (iconType, name) => {
@@ -43,15 +54,16 @@ export default function AtividadesCard(props:any) {
       case "selecionados":
         return <Image src={ic_trash} alt="Excluir" width={28} height={28} />;
       case "voluntarios":
-        return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image src={ic_ok} alt="Excluir" width={28} height={28} /></>;
+        return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image className="mr-4" src={ic_ok} alt="Excluir" width={28} height={28} /></>;
       case "participantes":
         return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image 
-          onClick={() => {
+        className="mr-4"  
+        onClick={() => {
             setNameToDelete(name);
             setModalExcluir(true);
           }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       case "atividades":
-        return <><Image className="mr-2" src={ic_edit_evento} alt="Editar" width={28} height={28} /><Image src={ic_trash} alt="Excluir" width={28} height={28} /></>;
+        return <><Image className="mr-2" src={ic_edit_evento} alt="Editar" width={28} height={28} /><Image className="mr-4" src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       default:
         return null; // Caso não tenha um tipo definido, não renderiza nada
     }
@@ -113,6 +125,15 @@ export default function AtividadesCard(props:any) {
             Enviar para seleção
           </Button>
         );
+
+      case "Adicionar atividade":
+        return (
+          <Button variant="outline" 
+          onClick={() => setAddAtividade(true)}
+          className="rounded-full bg-[#0E39F7] text-white-important">
+            Adicionar atividade
+          </Button>
+        );
   
       default:
         return null; // Caso não tenha nenhum status correspondente, não exibe botões
@@ -125,7 +146,7 @@ export default function AtividadesCard(props:any) {
   };
 
   return (
-    <Card className="p-4 border rounded-lg w-full max-w-md">
+    <Card className="p-6 border rounded-lg w-full">
       <div className="flex items-center justify-between w-full">
         <h3 className="text-lg font-bold text-blue-900">{eventData.title}</h3>
         {checkExists && (
@@ -175,7 +196,7 @@ export default function AtividadesCard(props:any) {
             <UserPlus className="h-4 w-4" />
           </Button>)}
 
-          {eventData.iconType == "selecionados" || eventData.iconType == "participantes" && (
+          {eventData.iconType == "selecionados" || eventData.iconType == "participantes" || eventData.iconType == "atividades" && (
             <>{renderButtons()}</>
           )}
 
@@ -201,6 +222,11 @@ export default function AtividadesCard(props:any) {
         onDelete={handleRemoveParticipant} // Nova função passada para o modal
       />
 
+      <Modal
+        isOpen={addAtividade}
+        onClose={()=> setAddAtividade(false)}
+        onSuccess={handleAddParticipant}
+      />
 
     </Card>
   );

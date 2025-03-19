@@ -89,12 +89,6 @@ export function SubsCard(props: any) {
             <span className="hidden sm:inline">Chamada</span>
             <span className="inline sm:hidden">Ligar</span>
         </Button>
-        
-        
-        
-        
-        
-        
             ) : (
             <div> {/* Envolvendo o conteúdo em um único elemento pai */}
                 <strong className="text-sm/3">Status da inscrição</strong> 
