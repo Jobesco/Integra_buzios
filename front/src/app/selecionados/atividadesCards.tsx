@@ -88,6 +88,13 @@ export default function AtividadesCard({ onChoose, ...props }) {
           setNameToDelete(name);
           setModalExcluir(true);
         }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
+
+      case "administradores":
+        return <><Image className="mr-4" 
+        onClick={() => {
+          setNameToDelete(name);
+          setModalExcluir(true);
+        }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       default:
         return null; // Caso não tenha um tipo definido, não renderiza nada
     }
@@ -228,7 +235,7 @@ export default function AtividadesCard({ onChoose, ...props }) {
         </span>
         <div className="flex gap-2">
           
-          {eventData.iconType == "selecionados" || eventData.iconType == "atividades"  && (<Button 
+          {eventData.iconType == "selecionados" || eventData.iconType == "atividades" || eventData.iconType == "administradores" && (<Button 
             onClick={()=>(setModalOpen(true))}
             className="bg-primary900 text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm"
           variant="outline">

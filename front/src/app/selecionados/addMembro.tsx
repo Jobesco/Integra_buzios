@@ -90,8 +90,38 @@ export default function AddMemberModal({ isOpen, onClose, eventData, setEventDat
         </div>
       </>
 
-          
-        ) : (
+        ) : eventData.iconType === "administradores" ? (<>
+          <div className="flex flex-col items-center justify-center p-6 space-y-6">
+            <DialogTitle className="text-4xl font-bold text-center">Adicionar novo administrador</DialogTitle>
+            
+            <div className="flex flex-col items-start w-full max-w-sm space-y-2">
+              <label className="text-gray-700 font-medium">E-mail do novo membro</label>
+              <Input
+                type="email"
+                placeholder="E-mail do novo membro"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setRole("administrador");
+                }}
+                disabled={loading}
+                className="w-full"
+              />
+            </div>
+  
+            <Button
+              onClick={handleAddMember}
+              className="rounded-full bg-[#0E39F7] mt-10 text-white-important px-6 py-2 hover:bg-[#0C34D4] transition-colors"
+              disabled={loading}
+            >
+              {loading ? "Adicionando..." : <><Plus className="mr-2 h-4 w-4" /> Adicionar membro</>}
+            </Button>
+          </div>
+        </>
+  
+            
+          ): 
+        (
           <>
           <DialogTitle className="text-4xl font-bold">Adicionar membro</DialogTitle>
           <div className="mt-4">
