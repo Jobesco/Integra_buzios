@@ -68,7 +68,11 @@ export default function AtividadesCard({ onChoose, ...props }) {
   const renderIcon = (iconType, name) => {
     switch (iconType) {
       case "selecionados":
-        return <Image src={ic_trash} alt="Excluir" width={28} height={28} />;
+        return <Image onClick={() => {
+          setNameToDelete(name);
+          setModalExcluir(true);
+        }}
+        src={ic_trash} alt="Excluir" width={28} height={28} />;
       case "voluntarios":
         return <><Image className="mr-2" src={ic_eye} alt="Visualizar" width={28} height={28} /><Image className="mr-4" src={ic_ok} alt="Excluir" width={28} height={28} /></>;
       case "participantes":
@@ -79,7 +83,11 @@ export default function AtividadesCard({ onChoose, ...props }) {
             setModalExcluir(true);
           }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       case "atividades":
-        return <><Image className="mr-2" src={ic_edit_evento} alt="Editar" width={28} height={28} /><Image className="mr-4" src={ic_trash} alt="Excluir" width={28} height={28} /></>;
+        return <><Image className="mr-2" src={ic_edit_evento} alt="Editar" width={28} height={28} /><Image className="mr-4" 
+        onClick={() => {
+          setNameToDelete(name);
+          setModalExcluir(true);
+        }} src={ic_trash} alt="Excluir" width={28} height={28} /></>;
       default:
         return null; // Caso não tenha um tipo definido, não renderiza nada
     }
@@ -220,14 +228,14 @@ export default function AtividadesCard({ onChoose, ...props }) {
         </span>
         <div className="flex gap-2">
           
-          {eventData.iconType == "selecionados" && (<Button 
+          {eventData.iconType == "selecionados" || eventData.iconType == "atividades"  && (<Button 
             onClick={()=>(setModalOpen(true))}
             className="bg-primary900 text-white-important px-3 py-1 sm:px-6 sm:py-2 rounded-full ml-[10px] sm:ml-[50px] text-xs sm:text-sm"
           variant="outline">
             <UserPlus className="h-4 w-4" />
           </Button>)}
 
-          {eventData.iconType == "selecionados" || eventData.iconType == "participantes" || eventData.iconType == "atividades" && (
+          {eventData.iconType == "selecionados" || eventData.iconType == "participantes" && (
             <>{renderButtons()}</>
           )}
 

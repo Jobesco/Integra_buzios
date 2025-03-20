@@ -129,7 +129,7 @@ export default function EditarGerencias() {
       console.log("Dados carregados da API fake!");
       handleNext();
       // Exemplo de uso:
-      setNewParticipants(["Participante A", "Participante B", "Participante C"]);
+      setNewParticipants(["A", "B", "C"]);
 
     }, 1000); // Simula um delay de 1 segundo
 
@@ -143,7 +143,7 @@ export default function EditarGerencias() {
     console.log("Dados carregados da API fake!");
     handlePrevious();
     // Exemplo de uso:
-    setNewParticipants(["Participante C", "Participante D", "Participante E"]);
+    setNewParticipants(["C", "D", "E"]);
     }, 1000); // Simula um delay de 1 segundo
 
   };
