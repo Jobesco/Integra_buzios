@@ -1,12 +1,20 @@
 'use client'
 import type { Metadata } from "next";
 import "./globals.css";
+import clsx from 'clsx'; // para mesclar classes
+
 import { Barlow } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 
 import Link from "next/link"
 import Image from "next/image"
+import { Montserrat } from 'next/font/google';
+
+const montserrat = Montserrat({
+    weight: ['400', '700', '800'], // Escolha os pesos que deseja utilizar
+    subsets: ['latin'],
+  });
 
 import {
   CircleUser, EllipsisVertical, Search, ChevronDown, ChevronUp,
@@ -129,7 +137,7 @@ export default function RootLayout({
         barlow.variable
       )}>
         {pathname !== '/login' && (
-          <header className="z-50 w-screen sticky flex h-[112px] items-center justify-between bg-[#0E39F7] py-8">
+          <header className={clsx(montserrat.className, " z-50 w-screen sticky flex h-[112px] items-center justify-between bg-[#0E39F7] py-8")}>
             {isAuthenticated && (
               <Menubar className="rounded-full h-12 text-primary900 w-[310px] flex justify-between font-bold absolute left-1/2 transform -translate-x-1/2">
                 <MenubarMenu>
@@ -166,6 +174,7 @@ export default function RootLayout({
               </div>
 
               {!isAuthenticated && (
+                <>
                 <div className="buttons-container ml-auto md:ml-0 md:absolute md:right-8">
                   <Button
                     onClick={openModal}
@@ -180,6 +189,54 @@ export default function RootLayout({
                     Crie sua conta
                   </Button>
                 </div>
+                <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
+                <Dialog open={isOpen} onOpenChange={setIsOpen}>
+         <DialogContent className="sm:max-w-md space-y-4">
+           <DialogHeader>
+             <DialogTitle className="text-4xl font-bold text-center"><strong>Faça seu login</strong></DialogTitle>
+           </DialogHeader>
+ 
+           {/* Campos do formulário */}
+           <div className="space-y-4 mx-5">
+             <p className="text-sm font-medium text-gray-700 "><strong>E-mail Petro:</strong></p>
+             <Input
+               type="text"
+               placeholder="Usuário ou e-mail"
+               className="w-full"
+             />
+             <p className="text-sm font-medium text-gray-700"><strong>Senha:</strong></p>
+             <Input
+               type="password"
+               placeholder="Senha"
+               className="w-full"
+             />
+           </div>
+ 
+           {/* Botão de Login */}
+           <Button
+             onClick={handleLogin}
+             className=" !text-white  bg-[#FF9F1C] hover:!bg-[#0e39f7] rounded-full px-6 py-2 transition-colors duration-300"
+ 
+           >
+             Entrar
+           </Button>
+ 
+           <p className="text-center font-medium text-gray-50">Esqueci a minha senha</p>
+           <hr></hr>
+ 
+           {/* Link para Cadastro */}
+           <div className="text-center mt-4">
+             <span className="text-sm text-gray-600">Não tem uma conta? </span>
+             <Link
+               href="#"
+               className="text-sm text-[#0e39f7] hover:underline"
+               onClick={closeModal} // Fecha o modal ao clicar no link
+             ><strong>Crie sua conta</strong>
+             </Link>
+           </div>
+         </DialogContent>
+       </Dialog>
+                </>
               )}
 
               <div className="flex items-center gap-10 text-surface">
@@ -216,6 +273,9 @@ export default function RootLayout({
                           <RefreshCcw strokeWidth={1.5} />
                           opcao 1
                         </Button>
+
+
+
                         <Dialog open={isOpen} onOpenChange={setIsOpen}>
                           <DialogTrigger className="rounded-lg p-3 inline-flex gap-2 hover:bg-orange hover:text-white text-black text-md bg-transparent justify-start">
                             <User strokeWidth={1.5} />
