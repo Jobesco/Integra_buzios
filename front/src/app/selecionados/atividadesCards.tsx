@@ -14,10 +14,25 @@ import ConfirmationModal from "./modalEnviado";
 import ExcluirModal from "./excluirInscricao";
 import Modal from "../painel/addAtividade";
 
-export default function AtividadesCard(props:any) {
+export default function AtividadesCard({ onChoose, ...props }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [nameToDelete, setNameToDelete] = useState("");
   const checkExists = props.check !== undefined; // Verifica se props.check existe
+  const gerente = props.gerente !== undefined;
+  const [selectedManager, setSelectedManager] = useState(null);
+
+  const handleManagerSelection = (participantName) => {
+    setEventData((prevData) => ({
+      ...prevData,
+      participants: prevData.participants.map((participant) => ({
+        ...participant,
+        isManager: participant.name === participantName, // Apenas um pode ser true
+      })),
+    }));
+    onChoose?.(participantName);
+    setSelectedManager(participantName);
+  };
+
   const [eventData, setEventData] = useState({
     id: props.id,
     title: props.title,
@@ -26,7 +41,8 @@ export default function AtividadesCard(props:any) {
     status: props.status,
     iconType: props.iconType,
     check: checkExists ? props.check : false, // Se props.check existe, usa ele; senão, usa false
-    ...(props.emEspera?.trim() && { emEspera: props.emEspera }) // Adiciona somente se não for vazio
+    ...(props.emEspera?.trim() && { emEspera: props.emEspera }), // Adiciona somente se não for vazio
+    gerente: gerente ? props.gerente : false,
   });
 
   const handleAddParticipant = (newParticipant) => {
@@ -168,19 +184,34 @@ export default function AtividadesCard(props:any) {
 
       <p className="text-sm text-gray-500">{eventData.subtitle}</p>
       <ScrollArea className="mt-4 max-h-40 overflow-y-auto border rounded-md">
-        {eventData.participants.map((participant, index) => (
-          <div
-            key={index}
-            className={`flex bg-surface justify-between items-center p-3 ${
-              participant.highlighted ? "bg-blue-900 text-white" : "bg-gray-100 text-gray-700"
-            } rounded-md mt-1 mx-2`}
-          >
+      {eventData.participants.map((participant, index) => (
+        <div
+          key={index}
+          className={`flex items-center justify-between p-3 rounded-md mt-1 mx-2 ${
+            participant.highlighted ? "bg-blue-900 text-white" : "bg-gray-100 text-gray-700"
+          }`}
+        >
+          {/* Checkbox Redondo */}
+          <div className="flex items-center gap-2">
+          {eventData.gerente && (
+              <input
+              type="checkbox"
+              className="w-5 h-5 accent-blue-600 rounded-full border-gray-400 focus:ring focus:ring-blue-300"
+              checked={participant.isManager || false}            
+              onChange={() => handleManagerSelection(participant.name)}
+              
+            />
+            )}
             <span>{participant.name}</span>
-            <Button variant="ghost" size="icon">{renderIcon(eventData.iconType, participant.name)}</Button>
-
           </div>
-        ))}
-      </ScrollArea>
+
+          {/* Botão de ação */}
+          <Button variant="ghost" size="icon">
+            {renderIcon(eventData.iconType, participant.name)}
+          </Button>
+        </div>
+      ))}
+    </ScrollArea>
 
       <div className="mt-4 flex justify-between items-center">
         <span className="text-green-600 flex items-center gap-2">
