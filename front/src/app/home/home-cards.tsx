@@ -1,7 +1,6 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import clsx from 'clsx'; // para mesclar classes
-import { Montserrat } from 'next/font/google';
 import {
   Card,
   CardDescription,
@@ -21,6 +20,7 @@ import SelectedCategoryContext from "@/lib/context"
 import { fetchFromAreas } from "../api/papers"
 import Image from "next/image";
 import img from "@/public/100percente.svg"
+import { Montserrat } from 'next/font/google';
 
 const montserrat = Montserrat({
     weight: ['400', '700', '800'], // Escolha os pesos que deseja utilizar

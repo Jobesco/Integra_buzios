@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { Montserrat } from 'next/font/google';
 import AtividadesCard from "../selecionados/atividadesCards";
+import { Montserrat } from 'next/font/google';
 
 
 const montserrat = Montserrat({
@@ -20,32 +20,31 @@ export default function VoluntaiosUsersPage() {
   const status = "no started"
 
   const renderActionButton = (event) => {
-    if (event == "no started") {
-      return (
-        <Button className="bg-[#0E39F7] text-white-important px-12 rounded-full">
-          Iniciar formulário
+
+    return (
+      <div className="flex items-center gap-3">
+        <Button className="bg-success text-white-important px-6 rounded-full">
+          Selecionar todos grupos
         </Button>
-      );
-    } else if (event == "started") {
-      return (
+
+        {event == "no started" ? (
+          <Button className="bg-[#0E39F7] text-white-important px-12 rounded-full">
+            Iniciar formulário
+          </Button>
+      ) : event == "started" ? (
         <Button className="bg-[#90a3b0] text-white-important px-12 rounded-full">
           Pausar Formulário
         </Button>
-      );
-    }else if (event == "finished") {
-      return (
+      ) : event == "finished" ? (
         <Button className="bg-white border-2 border-error text-error px-12 rounded-full">
           Formulário finalizado
         </Button>
-      );
-    } else {
-      return (
+      ) :(
         <Button className="bg-gray-500 text-white px-12 rounded-full" disabled>
           Indefinido
         </Button>
-      );
-    }
-  };
+    )}
+    </div>)};
 
   const [filters, setFilters] = useState({
     approved: true,
@@ -61,57 +60,64 @@ export default function VoluntaiosUsersPage() {
     {
         id:1,
       title: "Escalada #01",
-      subtitle: "15/15 vagas preenchidas",
+      subtitle: "43 candidaturas",
       participants: [
         { name: "Leonardo Pêra", highlighted: true },
         { name: "Usuário da Silva", highlighted: false },
         { name: "Usuário Número Dois Santos", highlighted: false },
         { name: "Usuário Três Silveira Lima do Rêgo", highlighted: false },
       ],
-      status: "Grupo aprovado",
-      iconType: "voluntarios",
+      status: "Enviar para seleção",
+      iconType: "participantes",
+      check:false,
+      emEspera: "Em espera ",
     },
     {
         id:2,
       title: "Escalada #02",
-      subtitle: "10/15 vagas preenchidas",
+      subtitle: "43 candidaturas",
       participants: [
         { name: "Maria Oliveira", highlighted: true },
         { name: "João Pedro", highlighted: false },
         { name: "Ana Souza", highlighted: false },
       ],
-      status: "Inscrições insuficientes",
-      iconType: "voluntarios",
+      status: "Enviar para seleção",
+      iconType: "participantes",
+      check:false,
+      emEspera: "Em espera ",
     },
     {
         id:3,
         title: "Escalada #02",
-        subtitle: "10/15 vagas preenchidas",
+        subtitle: "43 candidaturas",
         participants: [
           { name: "Maria Oliveira", highlighted: true },
           { name: "João Pedro", highlighted: false },
           { name: "Ana Souza", highlighted: false },
         ],
-        status: "Aguardando aprovação",
-        iconType: "voluntarios",
+        status: "Enviar para seleção",
+        iconType: "participantes",
+        check:false,
+        emEspera: "Em espera ",
       },
       {
         id:4,
         title: "Escalada #02",
-        subtitle: "10/15 vagas preenchidas",
+        subtitle: "43 candidaturas",
         participants: [
           { name: "Maria Oliveira", highlighted: true },
           { name: "João Pedro", highlighted: false },
           { name: "Ana Souza", highlighted: false },
         ],
-        status: "Aguardando aprovação",
-        iconType: "voluntarios",
+        status: "Enviar para seleção",
+        iconType: "participantes",
+        check:false,
+        emEspera: "Em espera ",
       },
     // Adicione mais objetos conforme necessário
   ]);
 
   const [members, setMembers] = useState([]);
-
 
   return (
     <div className={`${montserrat.className} px-4 sm:px-8 md:px-16 lg:px-32 xl:px-60 pt-20`}>
@@ -124,28 +130,12 @@ export default function VoluntaiosUsersPage() {
       </nav>
       
       <div className="flex items-center justify-between w-full mt-10">
-        <h1 className="text-4xl font-bold">Guia de Voluntários</h1>
+        <h1 className="text-4xl font-bold">Participantes</h1>
         {renderActionButton(status)}
-      </div>
-      <div className="relative mt-4 max-w-md">
-        <Input className="pl-10" placeholder="Pesquisar por atividade, guia voluntário, participante" />
-        <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
       </div>
       <div className="flex items-center gap-4 mt-4">
         <div className="flex items-center gap-2">
-          <span>Filtrar por:</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox checked={filters.approved} onCheckedChange={() => toggleFilter("approved")} />
-          <span>Grupo aprovado</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox checked={filters.pending} onCheckedChange={() => toggleFilter("pending")} />
-          <span>Aguardando aprovação</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Checkbox checked={filters.insufficient} onCheckedChange={() => toggleFilter("insufficient")} />
-          <span>Inscrições insuficientes</span>
+          <span>Quantidade de respostas ao formulário: </span>
         </div>
       </div>
 

@@ -54,11 +54,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
           <>
             <Input placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
             <Input placeholder="Confirmar e-mail" value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} />
-            <div className="grid grid-cols-3 gap-4">
-              {["Gerência 1", "Gerência 2", "Gerência 3"].map((option) => (
-                <Button key={option} onClick={() => setManagement(option)}>{option}</Button>
-              ))}
-            </div>
+            <Input placeholder="Gerencia" value={management} onChange={(e) => setManagement(e.target.value)} />
           </>
         );
       case 3:
