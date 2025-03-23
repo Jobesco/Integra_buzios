@@ -1,4 +1,32 @@
-# Integra_buzios
+# Integra buzios
+
+## Requirements
+
+- Docker 27
+- Ubuntu 22 or similar
+
+## Building and running
+
+Run on `bash`, on **this** folder:
+
+```bash
+docker compose
+
+
+docker build -t integraBack . && \
+docker run --name integraBack -d integraBack
+```
+
+### Stopping and restarting
+
+```bash
+docker stop integraBack
+docker start integraBack
+```
+
+
+For maintenance purposes, here's the prototyped version:
+# Integra_buzios prototype
 
 ## Pré-requisitos
 

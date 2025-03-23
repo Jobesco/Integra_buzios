@@ -3,12 +3,12 @@ services:
     image: front:latest
     restart: on-failure
     ports:
-      - 3015:3015 # TODO fix this
+      - 3015:3015 # TODO get from envfile (or .env?????)
     networks:
       - local
     build:
       context: ./front
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev # TODO differentiate!!
     extra_hosts:
       - host.docker.internal:host-gateway
 
@@ -16,7 +16,7 @@ services:
     image: integra:latest
     restart: on-failure
     ports:
-      - 3015:3015 # TODO fix this
+      - 8080:8080
     networks:
       - local
     build:
