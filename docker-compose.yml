@@ -11,6 +11,11 @@ services:
       dockerfile: Dockerfile.dev # TODO differentiate!!
     extra_hosts:
       - host.docker.internal:host-gateway
+    # TODO remove after devving!
+    volumes:
+      - ./front/src:/app/src:ro
+    env_file:
+      - ./front/.env
 
   integra:
     image: integra:latest
@@ -24,6 +29,8 @@ services:
       dockerfile: Dockerfile
     extra_hosts:
       - host.docker.internal:host-gateway
+    env_file:
+      - ./integra/.env
 
   db:
     image: mysql:9.2.0

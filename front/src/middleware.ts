@@ -3,50 +3,61 @@ import { cookies, headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import type { NextFetchEvent, NextRequest } from 'next/server';
 
+const corsOptions: {
+  allowedMethods: string[];
+  allowedOrigins: string[];
+  allowedHeaders: string[];
+  exposedHeaders: string[];
+  maxAge?: number;
+  credentials: boolean;
+} = {
+  allowedMethods: (process.env?.ALLOWED_METHODS || "").split(","),
+  allowedOrigins: (process.env?.ALLOWED_ORIGIN || "").split(","),
+  allowedHeaders: (process.env?.ALLOWED_HEADERS || "").split(","),
+  exposedHeaders: (process.env?.EXPOSED_HEADERS || "").split(","),
+  maxAge: process.env?.MAX_AGE && parseInt(process.env?.MAX_AGE) || undefined, // 60 * 60 * 24 * 30, // 30 days
+  credentials: process.env?.CREDENTIALS == "true",
+};
 
 export async function middleware(req: NextRequest) {
-  // const refresh = req.cookies.get('refresh_token')
-  // if (!refresh) {
-  //   return NextResponse.redirect(new URL('/login', req.url));
-  // }
+  const origin = req.headers.get("origin") ?? "";
+  const response = NextResponse.next();
 
-  // const access = req.cookies.get('access_token')
-  // if (!access) {
-  //   // get new refresh token and affix
-  //   const response = await fetch(`${process.env.BACK_ENDPOINT}/auth/refresh`, {
-  //     cache: 'no-store', credentials: 'include', headers: headers()
-  //   })
-  //   if (response.ok) {
-  //     const cookie = response.headers.get('set-cookie')?.split('; ')
-  //     const attribs = new Map()
-  //     cookie?.forEach(value => {
-  //       const pair = value.split('=')
-  //       if (pair.length == 1) {
-  //         attribs.set(pair[0], true)
-  //       } else {
-  //         attribs.set(pair[0], pair[1])
-  //       }
-  //     })
-  //     const newUrl = new URL('/redirect', req.url)
-  //     newUrl.searchParams.set('to', req.nextUrl.pathname.slice(1))
-  //     const res = NextResponse.redirect(newUrl)
+  // ? bypass enquanto nao exige CORS do lado do cliente
+  // if (req.method === "OPTIONS") {
+  //   // Responder pré-verificação (preflight) do navegador
+  //   const optionsResponse = new NextResponse(null, { status: 204 });
 
-  //     res.cookies.set('access_token', attribs.get('access_token'), {
-  //       expires: new Date(attribs.get('expires')),
-  //       httpOnly: attribs.has('HttpOnly'),
-  //       sameSite: attribs.get('SameSite'),
-  //       domain: attribs.get('Domain'),
-  //       path: attribs.get('Path'),
-  //     })
-
-  //     return res
-  //   } else {
-  //     return NextResponse.redirect(new URL('/login', req.url))
+  //   if (corsOptions.allowedOrigins.includes(origin) || corsOptions.allowedOrigins.includes("*")) {
+  //     optionsResponse.headers.set("Access-Control-Allow-Origin", origin);
   //   }
+
+  //   optionsResponse.headers.set("Access-Control-Allow-Credentials", corsOptions.credentials.toString());
+  //   optionsResponse.headers.set("Access-Control-Allow-Methods", corsOptions.allowedMethods.join(","));
+  //   optionsResponse.headers.set("Access-Control-Allow-Headers", corsOptions.allowedHeaders.join(","));
+  //   optionsResponse.headers.set("Access-Control-Expose-Headers", corsOptions.exposedHeaders.join(","));
+  //   optionsResponse.headers.set("Access-Control-Max-Age", corsOptions.maxAge?.toString() ?? "");
+
+  //   return optionsResponse;
   // }
-  return NextResponse.next();
+
+  // // Configurar CORS para requisições normais
+  // if (corsOptions.allowedOrigins.includes(origin) || corsOptions.allowedOrigins.includes("*")) {
+  //   response.headers.set("Access-Control-Allow-Origin", origin);
+  // }
+
+  // response.headers.set("Access-Control-Allow-Credentials", corsOptions.credentials.toString());
+  // response.headers.set("Access-Control-Allow-Methods", corsOptions.allowedMethods.join(","));
+  // response.headers.set("Access-Control-Allow-Headers", corsOptions.allowedHeaders.join(","));
+  // response.headers.set("Access-Control-Expose-Headers", corsOptions.exposedHeaders.join(","));
+  // response.headers.set("Access-Control-Max-Age", corsOptions.maxAge?.toString() ?? "");
+
+  return response;
 }
 
-export const config = {
-  matcher: ['/', '/success', '/home', '/trabalhos', '/view/:id*'],
-};
+
+// export const config = {
+//   matcher: ['/',
+//     // '/success', '/home', '/trabalhos', '/view/:id*'
+//   ],
+// };

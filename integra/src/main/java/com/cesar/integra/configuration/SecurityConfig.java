@@ -16,6 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+// ? adding CORS support 
+// TODO change and set correctly after devving
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
 import java.util.List;
 
 @Configuration
@@ -34,8 +40,21 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        // ? should this be privately configured?
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowedOrigins(List.of(System.getenv("ALLOWED_ORIGIN").split(", ")));
+        corsConfiguration.setAllowedMethods(List.of(System.getenv("ALLOWED_METHODS").split(", ")));
+        corsConfiguration.setAllowedHeaders(List.of(System.getenv("ALLOWED_HEADERS").split(", ")));
+        corsConfiguration.setExposedHeaders(List.of(System.getenv("EXPOSED_HEADERS").split(", ")));
+        corsConfiguration.setAllowCredentials(Boolean.parseBoolean(System.getenv("CREDENTIALS")));
+        corsConfiguration.setMaxAge(Long.parseLong(System.getenv("MAX_AGE")));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(source))
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/auth/**").permitAll();
                     registry.requestMatchers("/admin/**").hasRole("ADMIN");
