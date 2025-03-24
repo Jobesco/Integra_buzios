@@ -5,12 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 
+import { SetStateAction, Dispatch } from "react";
+
 interface SignupModalProps {
   isOpen: boolean;
   onClose: () => void;
+  setDialog: Dispatch<SetStateAction<boolean>>;
 }
 
-const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
+const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose, setDialog }) => {
   const [step, setStep] = useState<number>(1);
   const [fullName, setFullName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -26,7 +29,16 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
   const handleBack = () => setStep(step - 1);
 
   const handleSubmit = async () => {
-    const data = { fullName, email, management, phone, gender, disability, password };
+    const data = {
+      email,
+      name: fullName, 
+      management: [management], // TODO conform to array of strings
+      lastManagementId: undefined,
+      phone: phone,
+      gender: gender, // ? M, F or none
+      pwd: disability, // ? boolean
+      password // ! should be encrypted
+    };
     const response = await fetch("http://localhost:8080/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,6 +51,12 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
       alert("Verifique seus dados");
     }
   };
+
+  const logIn = async () => {
+    // ? close modal and open login modal
+    onClose()
+    setDialog(true)
+  }
 
   const renderStep = () => {
     switch (step) {
@@ -110,7 +128,7 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
           {step === 4 && <Button className="bg-[#0e39f7] !text-white rounded-full px-6 py-2 transition-colors duration-300"
  onClick={handleSubmit}>Confirmar</Button>}
           {step === 5 && <Button className="bg-[#0e39f7] !text-white rounded-full px-6 py-2 transition-colors duration-300"
- onClick={onClose}>Entrar</Button>}
+ onClick={logIn}>Entrar</Button>}
         </DialogFooter>
       </DialogContent>
     </Dialog>

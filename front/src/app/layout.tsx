@@ -57,6 +57,9 @@ import grupo from "@/public/adm/group.png"
 import integra from "@/public/adm/integra.png"
 import SignupModal from "@/components/SignupModal/SignupModal";
 
+
+import { checkCookie } from "./actions";
+
 const barlow = Barlow({
   subsets: ["latin"],
   weight: "400",
@@ -73,6 +76,7 @@ export default function RootLayout({
   const [userName, setUserName] = useState<string>('')
   const [profilePic, setProfilePic] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [pass, setPass] = useState<string>('') // TODO do this safely!!
   const [adminToggle, setAdminToggle] = useState<boolean>(false)
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
@@ -80,20 +84,13 @@ export default function RootLayout({
   const { push } = useRouter()
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
-  useEffect(() => {
-    setUserName(getLocalStorage('name') ?? '')
-    setProfilePic(getLocalStorage('picture') ?? '')
-    setEmail(getLocalStorage('email') ?? '')
 
+  useEffect(() => {
     // Verificar autenticação
     const checkAuth = async () => {
       try {
-        const response = await fetch('http://localhost:8080/auth/check-auth', {
-          method: 'GET',
-          credentials: 'include', // Importante para enviar cookies de sessão
-        });
-        const data = await response.json();
-        setIsAuthenticated(data);
+        const cook = await checkCookie('JSESSIONID')
+        setIsAuthenticated(cook != '');
       } catch (error) {
         console.error('Erro ao verificar autenticação:', error);
         setIsAuthenticated(false);
@@ -116,8 +113,26 @@ export default function RootLayout({
   }
 
   // Função para lidar com o login
-  const handleLogin = () => {
-    console.log('Usuário logado');
+  const handleLogin = async () => {
+    // TODO form validation
+    try {
+      const response = await fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        credentials: 'include', // Importante para enviar cookies de sessão
+        body: JSON.stringify({ email, password: pass }),
+        headers: { "Content-Type": "application/json" },
+
+      });
+      const ok = await response.ok
+      if (ok) {
+        setIsAuthenticated(true);
+        push('/principal')
+      } else throw new Error("Autenticação falhou");
+      
+    } catch (error) {
+      console.error('Erro no login:', error);
+      setIsAuthenticated(false);
+    }
     closeModal();
   };
 
@@ -128,6 +143,9 @@ export default function RootLayout({
 
   function handleClick(admin: boolean) {
     setAdminToggle(admin)
+    push(admin ? '/adm' : '/principal')
+    // TODO persist information, including admintoggle
+    // TODO remove bottom space from adm
   }
 
   return (
@@ -189,7 +207,8 @@ export default function RootLayout({
                     Crie sua conta
                   </Button>
                 </div>
-                <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} />
+                {/* useState to condition dialog automatically opening */}
+                <SignupModal isOpen={isSignupOpen} onClose={() => setIsSignupOpen(false)} setDialog={setIsOpen} />
                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
          <DialogContent className="sm:max-w-md space-y-4">
            <DialogHeader>
@@ -200,15 +219,17 @@ export default function RootLayout({
            <div className="space-y-4 mx-5">
              <p className="text-sm font-medium text-gray-700 "><strong>E-mail Petro:</strong></p>
              <Input
-               type="text"
-               placeholder="Usuário ou e-mail"
-               className="w-full"
+                type="text"
+                placeholder="Usuário ou e-mail"
+                className="w-full"
+                value={email} onChange={(e) => setEmail(e.target.value)} 
              />
              <p className="text-sm font-medium text-gray-700"><strong>Senha:</strong></p>
              <Input
-               type="password"
-               placeholder="Senha"
-               className="w-full"
+                type="password"
+                placeholder="Senha"
+                className="w-full"
+                value={pass} onChange={(e) => setPass(e.target.value)}
              />
            </div>
  
@@ -274,29 +295,6 @@ export default function RootLayout({
                           opcao 1
                         </Button>
 
-
-
-                        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                          <DialogTrigger className="rounded-lg p-3 inline-flex gap-2 hover:bg-orange hover:text-white text-black text-md bg-transparent justify-start">
-                            <User strokeWidth={1.5} />
-                            opcao 2
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>Atualize seu ID Lattes</DialogTitle>
-                              <DialogDescription>
-                                Por favor, insira apenas os números do seu ID
-                              </DialogDescription>
-                            </DialogHeader>
-                            <Input
-                              placeholder="Ex: 1234567890"
-                              className="w-full rounded-xl bg-lightGrey border-transparent"
-                            />
-                            <DialogFooter className="mt-10 md:justify-between sm:justify-start">
-                              <Button className="bg-orange hover:bg-darkOrange">Enviar</Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
                         <Button className="rounded-lg p-3 py-6 inline-flex gap-2 hover:bg-orange hover:text-white text-black text-md bg-transparent justify-start">
                           <LogOut strokeWidth={1.5} />
                           Sair

@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [showButton, setShowButton] = useState(false); // Estado inicial
   const [activeTab, setActiveTab] = useState('inscricoes');
   const [inscricoes, setInscricoes] = useState([]);
+  // TODO get from localStorage
   const [user, setUser] = useState({ firstName: 'Admin', lastName: 'Silva' });
 
   const handleTabChange = (tab) => {

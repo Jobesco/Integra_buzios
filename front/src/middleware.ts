@@ -20,10 +20,14 @@ const corsOptions: {
 };
 
 export async function middleware(req: NextRequest) {
-  const origin = req.headers.get("origin") ?? "";
   const response = NextResponse.next();
+  // TODO jogar pro login se não tiver cookie!!
+  const cook = req.cookies.get('JSESSIONID')
+  if (!cook) return NextResponse.redirect(new URL('/home', req.url))
+
 
   // ? bypass enquanto nao exige CORS do lado do cliente
+  // const origin = req.headers.get("origin") ?? "";
   // if (req.method === "OPTIONS") {
   //   // Responder pré-verificação (preflight) do navegador
   //   const optionsResponse = new NextResponse(null, { status: 204 });

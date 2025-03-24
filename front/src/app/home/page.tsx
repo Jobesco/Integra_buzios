@@ -17,9 +17,7 @@ const montserrat = Montserrat({
 });
 
 export default async function Home() {
-
-  
-
+  // TODO open login modal from Cadastre-se
   
   return (
     <>
