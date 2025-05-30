@@ -33,13 +33,13 @@ services:
       - ./integra/.env
 
   db:
-    image: mysql:9.2.0
+    image: postgres:16.2
     restart: always
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      - MYSQL_ROOT_PASSWORD=34313407A
-      - MYSQL_DATABASE=integrabuzios
+      - POSTGRES_PASSWORD=34313407A
+      - POSTGRES_DB=integrabuzios
     networks:
       - local
 
