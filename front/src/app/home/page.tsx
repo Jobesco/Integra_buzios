@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import Image  from "next/image";
 import { Separator } from "@/components/ui/separator";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Suspense } from "react";
 import Dialogger from "./dialogger";
 import ExploreCardPage from "./explore-card";
-import HomeCard from "./home-cards"
+import { HomeCard } from "./home-cards"
 import { Montserrat } from 'next/font/google';
 import img from "@/public/banner.png"
 import clsx from 'clsx'; // para mesclar classes

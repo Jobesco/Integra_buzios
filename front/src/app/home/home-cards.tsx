@@ -40,8 +40,8 @@ function Keyword({ title, ...props }: {
 }
 
 export function HomeCard(props: any) {
-
-    const textWithLineBreaks = props.text.split('\n').map((line, index) => (
+    const text = props.text || ""; // fallback to empty string
+    const textWithLineBreaks = text.split('\n').map((line, index) => (
         <span key={index}>
           {line}
           <br />
