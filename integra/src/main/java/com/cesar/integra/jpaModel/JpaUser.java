@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "User")
+@Table(name = "App User")
 public class JpaUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
